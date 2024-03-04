@@ -1,0 +1,83 @@
+import { forwardRef, useEffect } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+// material-ui
+import { Box, IconButton, Link, useMediaQuery } from '@mui/material';
+import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+
+import { useDispatch, useSelector } from 'react-redux';
+
+// project import
+import Search from './Search';
+import Profile from './Profile';
+import Notification from './Notification';
+import MobileSection from './MobileSection';
+
+import { activeItem } from 'store/reducers/menu';
+
+// ==============================|| HEADER - CONTENT ||============================== //
+
+const HeaderContent = () => {
+    const matchesXs = useMediaQuery((theme) => theme.breakpoints.down('md'));
+
+    const dispatch = useDispatch();
+    const menu = useSelector((state) => state.menu);
+    const { openItem } = menu;
+
+    let itemTarget = '_self';
+
+    let listItemProps = { component: forwardRef((props, ref) => <RouterLink ref={ref} {...props} to={'/sharemap'} target={itemTarget} />) };
+    let dashItemProps = { component: forwardRef((props, ref) => <RouterLink ref={ref} {...props} to={'/'} target={itemTarget} />) };
+    let fileProps = { component: forwardRef((props, ref) => <RouterLink ref={ref} {...props} to={'/uploadmap'} target={itemTarget} />) };
+    const itemHandler = (id) => {
+        dispatch(activeItem({ openItem: [id] }));
+    };
+
+    return (
+        <>
+            {!matchesXs && <Search />}
+            {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
+
+            <IconButton
+                {...dashItemProps}
+                onClick={() => itemHandler('sharemap')}
+                target="_blank"
+                disableRipple
+                color="secondary"
+                title="Download Free Version"
+                sx={{ color: 'text.primary', bgcolor: 'grey.100', mr: 0.75 }}
+            >
+                <DashboardIcon />
+            </IconButton>
+            <IconButton
+                {...listItemProps}
+                onClick={() => itemHandler('sharemap')}
+                target="_blank"
+                disableRipple
+                color="secondary"
+                title="Download Free Version"
+                sx={{ color: 'text.primary', bgcolor: 'grey.100', mr: 0.75 }}
+            >
+                <LibraryAddCheckIcon />
+            </IconButton>
+            <IconButton
+                {...fileProps}
+                onClick={() => itemHandler('uploadmap')}
+                target="_blank"
+                disableRipple
+                color="secondary"
+                title="Download Free Version"
+                sx={{ color: 'text.primary', bgcolor: 'grey.100', mr: 0.75 }}
+            >
+                <FileUploadIcon />
+            </IconButton>
+
+            <Notification />
+            {!matchesXs && <Profile />}
+            {matchesXs && <MobileSection />}
+        </>
+    );
+};
+
+export default HeaderContent;
