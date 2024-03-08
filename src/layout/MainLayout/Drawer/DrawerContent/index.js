@@ -52,7 +52,7 @@ function a11yProps(index) {
 const useStyles = makeStyles({
     tabLabel: {
         fontFamily: 'YourFont',
-        fontSize: '16px',
+        fontSize: '15px',
         fontWeight: 'bold'
     },
     tabs: {

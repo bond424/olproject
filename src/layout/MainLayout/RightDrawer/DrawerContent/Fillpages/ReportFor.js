@@ -35,6 +35,18 @@ function ReportFor() {
         setAge(event.target.value);
     };
 
+    const handleOpenPopup = () => {
+        const width = 930;
+        const height = 958;
+        const left = window.screenX + (window.outerWidth - width) / 2;
+        const top = window.screenY + (window.outerHeight - height) / 2;
+        const popup = window.open(
+            'http://localhost:3000/value/reportpop',
+            '팝업...',
+            `width=${width},height=${height},left=${left},top=${top}`
+        );
+    };
+
     return (
         <Container maxWidth="sm" sx={{ height: '100%' }}>
             <Box fullWidth sx={{ height: '100px', bgcolor: '#f2f5f3' }}>
@@ -73,6 +85,11 @@ function ReportFor() {
                             <MenuItem value={30}>Thirty</MenuItem>
                         </Select>
                     </FormControl>
+                </div>
+                <div className="App">
+                    <Button onClick={handleOpenPopup} component="label" variant="contained" tabIndex={-1} startIcon={<CloudUploadIcon />}>
+                        팝업 열기
+                    </Button>
                 </div>
             </Box>
             <Box

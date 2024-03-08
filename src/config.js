@@ -12,7 +12,7 @@ const config = {
 };
 
 export default config;
-export const drawerWidth = 340;
+export const drawerWidth = 330;
 export const rightWidth = 550;
 
 export const twitterColor = '#1DA1F2';

@@ -14,6 +14,7 @@ const Shadow = Loadable(lazy(() => import('pages/components-overview/Shadow')));
 const AntIcons = Loadable(lazy(() => import('pages/components-overview/AntIcons')));
 const ShareMap = Loadable(lazy(() => import('pages/components-overview/ShareMap')));
 const UploadMap = Loadable(lazy(() => import('pages/components-overview/UploadMap')));
+const Reportpop = Loadable(lazy(() => import('pages/components-overview/Reportpop')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -53,6 +54,10 @@ const MainRoutes = {
         {
             path: 'uploadmap',
             element: <UploadMap />
+        },
+        {
+            path: 'reportpop',
+            element: <Reportpop />
         },
         {
             path: 'icons/ant',

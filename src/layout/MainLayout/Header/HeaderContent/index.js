@@ -5,6 +5,7 @@ import { Box, IconButton, Link, useMediaQuery } from '@mui/material';
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import SummarizeIcon from '@mui/icons-material/Summarize';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -30,6 +31,7 @@ const HeaderContent = () => {
     let listItemProps = { component: forwardRef((props, ref) => <RouterLink ref={ref} {...props} to={'/sharemap'} target={itemTarget} />) };
     let dashItemProps = { component: forwardRef((props, ref) => <RouterLink ref={ref} {...props} to={'/'} target={itemTarget} />) };
     let fileProps = { component: forwardRef((props, ref) => <RouterLink ref={ref} {...props} to={'/uploadmap'} target={itemTarget} />) };
+    let reportpopup = { component: forwardRef((props, ref) => <RouterLink ref={ref} {...props} to={'/reportpop'} target={itemTarget} />) };
     const itemHandler = (id) => {
         dispatch(activeItem({ openItem: [id] }));
     };
@@ -71,6 +73,17 @@ const HeaderContent = () => {
                 sx={{ color: 'text.primary', bgcolor: 'grey.100', mr: 0.75 }}
             >
                 <FileUploadIcon />
+            </IconButton>
+            <IconButton
+                {...reportpopup}
+                onClick={() => itemHandler('uploadmap')}
+                target="_blank"
+                disableRipple
+                color="secondary"
+                title="Download Free Version"
+                sx={{ color: 'text.primary', bgcolor: 'grey.100', mr: 0.75 }}
+            >
+                <SummarizeIcon />
             </IconButton>
 
             <Notification />
