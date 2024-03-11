@@ -51,7 +51,7 @@ function ReportFor() {
         <Container maxWidth="sm" sx={{ height: '100%' }}>
             <Box fullWidth sx={{ height: '100px', bgcolor: '#f2f5f3' }}>
                 <div style={{ width: '100%', display: 'flex' }}>
-                    <Typography sx={{ p: '9.5px' }}>구분</Typography>
+                    <Typography sx={{ p: '9.5px', mt: '5px' }}>구분</Typography>
                     <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                         <InputLabel id="demo-select-small-label">주요지점</InputLabel>
                         <Select labelId="demo-select-small-label" id="demo-select-small" value={age} label="Age" onChange={handleChange}>
@@ -86,11 +86,19 @@ function ReportFor() {
                         </Select>
                     </FormControl>
                 </div>
-                <div className="App">
+                <Box
+                    fullWidth
+                    sx={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}
+                >
                     <Button onClick={handleOpenPopup} component="label" variant="contained" tabIndex={-1} startIcon={<CloudUploadIcon />}>
                         팝업 열기
                     </Button>
-                </div>
+                </Box>
             </Box>
             <Box
                 fullWidth

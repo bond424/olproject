@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { InputLabel, Container, MenuItem, FormControl, Select, Typography, Button } from '@mui/material';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Box from '@mui/material/Box';
 
 import './reportpop.css';
@@ -75,6 +76,26 @@ const Reportpop = () => {
                         </tr>
                     </tbody>
                 </table>
+                <Box
+                    fullWidth
+                    sx={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '100px',
+                        mt: 1
+                    }}
+                >
+                    <Box sx={{ display: 'flex' }}>
+                        <Button component="label" role={undefined} variant="contained" tabIndex={-1} startIcon={<CloudUploadIcon />}>
+                            확인
+                        </Button>
+                        <Button sx={{ ml: 1 }} component="label" variant="contained" tabIndex={-1} startIcon={<CloudUploadIcon />}>
+                            취소
+                        </Button>
+                    </Box>
+                </Box>
             </Box>
         </Container>
     );
