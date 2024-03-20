@@ -6,7 +6,8 @@ const initialState = {
     openItem: ['dashboard'],
     openComponent: 'buttons',
     drawerOpen: false,
-    componentDrawerOpen: true
+    componentDrawerOpen: true,
+    drawFeature: false
 };
 
 // ==============================|| SLICE - MENU ||============================== //
@@ -33,10 +34,14 @@ const menu = createSlice({
 
         openComponentDrawer(state, action) {
             state.componentDrawerOpen = action.payload.componentDrawerOpen;
+        },
+
+        activeDrawf(state, action) {
+            state.drawFeature = action.payload.drawFeature;
         }
     }
 });
 
 export default menu.reducer;
 
-export const { activeItem, activeComponent, openDrawer, openComponentDrawer, openRight } = menu.actions;
+export const { activeItem, activeComponent, openDrawer, openComponentDrawer, openRight, activeDrawf } = menu.actions;

@@ -1,4 +1,4 @@
-import { forwardRef, useEffect } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 // material-ui
 import { Box, IconButton, Link, useMediaQuery } from '@mui/material';
@@ -15,7 +15,7 @@ import Profile from './Profile';
 import Notification from './Notification';
 import MobileSection from './MobileSection';
 
-import { activeItem } from 'store/reducers/menu';
+import { activeItem, activeDrawf } from 'store/reducers/menu';
 
 // ==============================|| HEADER - CONTENT ||============================== //
 
@@ -36,11 +36,26 @@ const HeaderContent = () => {
         dispatch(activeItem({ openItem: [id] }));
     };
 
+    const [checked, setChecked] = useState(false);
+    const activebtn = (x) => {
+        setChecked((prevChecked) => !prevChecked);
+        dispatch(activeDrawf({ drawFeature: !checked }));
+    };
+
     return (
         <>
             {!matchesXs && <Search />}
             {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
-
+            <IconButton
+                onClick={activebtn}
+                target="_blank"
+                disableRipple
+                color="secondary"
+                title="객체 그리기"
+                sx={{ color: 'text.primary', bgcolor: 'grey.100', mr: 0.75 }}
+            >
+                <DashboardIcon />
+            </IconButton>
             <IconButton
                 {...dashItemProps}
                 onClick={() => itemHandler('sharemap')}
