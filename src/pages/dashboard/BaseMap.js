@@ -9,8 +9,8 @@ import { OSM, Vector as VectorSource } from 'ol/source.js';
 import { get } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
 import { transform } from 'ol/proj';
-import Draw from 'ol/interaction/Draw.js';
 import { Grid } from '@mui/material';
+import { Draw, Select, Translate, defaults as defaultInteractions } from 'ol/interaction.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { activeItem, activeDrawf } from 'store/reducers/menu';
 
@@ -36,7 +36,14 @@ const BaseMap = () => {
 
         const transformedCenter = transform(initialCenterEPSG5179, 'EPSG:4326', 'EPSG:5179');
 
+        const select = new Select();
+
+        const translate = new Translate({
+            features: select.getFeatures()
+        });
+
         const map = new OlMap({
+            interactions: defaultInteractions().extend([select, translate]),
             layers: [
                 new TileLayer({
                     source: new XYZ({
@@ -60,7 +67,7 @@ const BaseMap = () => {
     return (
         <Grid container>
             {drawFeature && <Mapdrawer map={mapObject} source={drawsource} />}
-            <div id="map" value={mapObject} style={{ width: '100%', height: '55rem' }}></div>
+            <div id="map" value={mapObject} style={{ width: '100%', height: '61rem' }}></div>
         </Grid>
     );
 };

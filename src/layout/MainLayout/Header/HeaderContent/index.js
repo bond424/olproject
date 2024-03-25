@@ -6,6 +6,7 @@ import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import SummarizeIcon from '@mui/icons-material/Summarize';
+import ConstructionIcon from '@mui/icons-material/Construction';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -54,7 +55,7 @@ const HeaderContent = () => {
                 title="객체 그리기"
                 sx={{ color: 'text.primary', bgcolor: 'grey.100', mr: 0.75 }}
             >
-                <DashboardIcon />
+                <ConstructionIcon />
             </IconButton>
             <IconButton
                 {...dashItemProps}
