@@ -34,6 +34,21 @@ const UploadMap = () => {
             source: new TileWMS({
                 url: geoserverWMSUrl,
                 params: {
+                    LAYERS: 'test:Seoul',
+                    TILED: true,
+                    FORMAT: 'image/png',
+                    VERSION: '1.1.1'
+                },
+                serverType: 'geoserver'
+            })
+        });
+
+        const geoserverWMSUrl3 = 'http://localhost:8099/geoserver/test/wms';
+
+        const geoTiffLayer3 = new TileLayer({
+            source: new TileWMS({
+                url: geoserverWMSUrl3,
+                params: {
                     LAYERS: 'test:Ortho_5179',
                     TILED: true,
                     FORMAT: 'image/png',
@@ -45,6 +60,21 @@ const UploadMap = () => {
 
         geoTiffLayer.getSource().on('error', function (event) {
             console.error('GeoTIFF 소스 로딩 중 오류 발생:', event);
+        });
+
+        const geoserverWMSUrl2 = 'http://localhost:8099/geoserver/test2/wms';
+
+        const shplayer = new TileLayer({
+            source: new TileWMS({
+                url: geoserverWMSUrl2,
+                params: {
+                    LAYERS: 'test2:용지조서 종합본_949_5179',
+                    TILED: true,
+                    FORMAT: 'image/png',
+                    VERSION: '1.1.1'
+                },
+                serverType: 'geoserver'
+            })
         });
 
         const initialCenterEPSG5179 = [126.8570817, 35.1723225];
@@ -59,7 +89,7 @@ const UploadMap = () => {
         });
 
         const map = new OlMap({
-            layers: [baseMapLayer, geoTiffLayer],
+            layers: [baseMapLayer, geoTiffLayer, shplayer, geoTiffLayer3],
             target: 'uploadmap',
             view: new View({
                 projection: getProjection('EPSG:5179'),
