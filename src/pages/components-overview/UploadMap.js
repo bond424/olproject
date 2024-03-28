@@ -17,7 +17,6 @@ import MousePosition from 'ol/control/MousePosition';
 import { defaults as defaultControls } from 'ol/control.js';
 import { createStringXY } from 'ol/coordinate.js';
 import { Grid, InputLabel, Container, MenuItem, FormControl, Select, Typography, Button } from '@mui/material';
-
 const key = 'get_your_own_D6rA4zTHduk6KOKTXzGB';
 
 proj4.defs([
@@ -175,12 +174,16 @@ const UploadMap = () => {
         const gifS_3 = new TileLayer({
             source: new TileWMS({
                 url: newkalayer,
+                url: newkalayer,
                 params: {
+                    LAYERS: 'test2:코스타나이_202406_식생지수',
                     LAYERS: 'test2:코스타나이_202406_식생지수',
                     TILED: true,
                     FORMAT: 'image/png',
                     VERSION: '1.1.1'
                 },
+                name: 'S3',
+                visible: false,
                 serverType: 'geoserver'
             }),
             name: 'S3',
