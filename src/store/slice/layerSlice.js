@@ -7,10 +7,10 @@ const initialState = {
     vactorStack: []
 };
 
-const setFeatureLayer = createAsyncThunk("layerbase/vectorlayer", async () => {
+const setFeatureLayer = createAsyncThunk('layerbase/vectorlayer', async () => {
     const response = await layerService.setFeatureLayer();
     return response.data;
-})
+});
 
 // ==============================|| SLICE - MENU ||============================== //
 
@@ -29,14 +29,10 @@ const layerSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(setFeatureLayer.fulfilled, (state, action) => {
             state.featureLayer = action.payload;
-          });
+        });
     }
 });
 
-
-export const {
-    addFeatureLayer,
-    activeComponent
-} = layerSlice.actions;
+export const { addFeatureLayer, activeComponent } = layerSlice.actions;
 
 export default layerSlice.reducer;
