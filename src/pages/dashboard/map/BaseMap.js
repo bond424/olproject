@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'ol/ol.css'; //스타일
 import { Map as OlMap, View } from 'ol'; //뷰 관리
 import { fromLonLat, get as getProjection } from 'ol/proj'; //위경도
-import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'; //지도타일
+import { Tile as TileLayer, Vector as VectorLayer, Group as LayerGroup } from 'ol/layer'; //지도타일
 import XYZ from 'ol/source/XYZ.js';
 import proj4 from 'proj4';
 import { OSM, Vector as VectorSource } from 'ol/source.js';
@@ -12,9 +12,10 @@ import { transform } from 'ol/proj';
 import { Grid } from '@mui/material';
 import { Draw, Select, Translate, defaults as defaultInteractions } from 'ol/interaction.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { activeItem, activeDrawf } from 'store/reducers/menu';
+import { activeItem, activeDrawf, vectorD } from 'store/reducers/menu';
 
 import Mapdrawer from './mapfunction/Mapdrawer';
+import MapSwitch from './mapfunction/MapSwitch';
 
 proj4.defs([
     [
@@ -24,11 +25,17 @@ proj4.defs([
 ]);
 register(proj4);
 
-const key = 'get_your_own_D6rA4zTHduk6KOKTXzGB';
-
 const BaseMap = () => {
+    const dispatch = useDispatch();
     const [mapObject, setMapObject] = useState({});
-    const { drawFeature } = useSelector((state) => state.menu);
+    const { drawFeature, switchFeature } = useSelector((state) => state.menu);
+    // const drawsource = new VectorSource({ wrapX: false });
+    const { getLayerUrl, vctDrawer, vectordLayer } = useSelector((state) => state.menu);
+    const [tileLayerUrl, setTileLayerUrl] = useState();
+    const [showMainLayer, setShowMainLayer] = useState(true);
+    const [showSetSlayer, setShowSetSlayer] = useState(true);
+    const [vctLayer, setvctLayer] = useState(null);
+
     const drawsource = new VectorSource({ wrapX: false });
 
     useEffect(() => {
@@ -42,16 +49,27 @@ const BaseMap = () => {
             features: select.getFeatures()
         });
 
+        const setl = 'https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=N6cizo2S18gj0lhV1Lcv';
+        const setSlayer = new TileLayer({
+            source: new XYZ({
+                attributions: '',
+                url: setl
+            }),
+            visible: false,
+            name: 'setSlayer'
+        });
+        const mainlayer = new TileLayer({
+            source: new XYZ({
+                attributions: '',
+                url: getLayerUrl
+            }),
+            visible: true,
+            name: 'mainlayer'
+        });
+
         const map = new OlMap({
             interactions: defaultInteractions().extend([select, translate]),
-            layers: [
-                new TileLayer({
-                    source: new XYZ({
-                        attributions: '',
-                        url: 'https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=' + key
-                    })
-                })
-            ],
+            layers: [mainlayer, setSlayer],
             target: 'map',
             view: new View({
                 projection: getProjection('EPSG:5179'),
@@ -64,8 +82,13 @@ const BaseMap = () => {
         return () => map.setTarget(undefined);
     }, []);
 
+    if (!mapObject) {
+        return null;
+    }
+
     return (
         <Grid container>
+            {switchFeature && <MapSwitch map={mapObject} />}
             {drawFeature && <Mapdrawer map={mapObject} source={drawsource} />}
             <div id="map" value={mapObject} style={{ width: '100%', height: '61rem' }}></div>
         </Grid>

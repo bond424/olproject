@@ -1,5 +1,6 @@
 // types
 import { createSlice } from '@reduxjs/toolkit';
+import { Vector as VectorSource } from 'ol/source.js';
 
 // initial state
 const initialState = {
@@ -7,7 +8,11 @@ const initialState = {
     openComponent: 'buttons',
     drawerOpen: false,
     componentDrawerOpen: true,
-    drawFeature: false
+    drawFeature: false,
+    switchFeature: false,
+    getLayerUrl: 'https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=get_your_own_D6rA4zTHduk6KOKTXzGB',
+    drawsource: null,
+    vectordLayer: null
 };
 
 // ==============================|| SLICE - MENU ||============================== //
@@ -38,10 +43,37 @@ const menu = createSlice({
 
         activeDrawf(state, action) {
             state.drawFeature = action.payload.drawFeature;
+        },
+
+        activeSwitchf(state, action) {
+            state.switchFeature = action.payload.switchFeature;
+        },
+
+        chageMap(state, action) {
+            state.getLayerUrl = action.payload.getLayerUrl;
+        },
+
+        vctDrawer(state, action) {
+            state.drawsource = action.payload.drawsource;
+        },
+
+        vectorD(state, action) {
+            state.vectordLayer = action.payload.vectordLayer;
         }
     }
 });
 
 export default menu.reducer;
 
-export const { activeItem, activeComponent, openDrawer, openComponentDrawer, openRight, activeDrawf } = menu.actions;
+export const {
+    activeItem,
+    activeComponent,
+    openDrawer,
+    openComponentDrawer,
+    openRight,
+    activeDrawf,
+    chageMap,
+    activeSwitchf,
+    vctDrawer,
+    vectorD
+} = menu.actions;

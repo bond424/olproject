@@ -16,7 +16,7 @@ import Profile from './Profile';
 import Notification from './Notification';
 import MobileSection from './MobileSection';
 
-import { activeItem, activeDrawf } from 'store/reducers/menu';
+import { activeItem, activeDrawf, activeSwitchf } from 'store/reducers/menu';
 
 // ==============================|| HEADER - CONTENT ||============================== //
 
@@ -38,15 +38,30 @@ const HeaderContent = () => {
     };
 
     const [checked, setChecked] = useState(false);
-    const activebtn = (x) => {
+    const [checked2, setChecked2] = useState(false);
+    const activebtn = () => {
         setChecked((prevChecked) => !prevChecked);
         dispatch(activeDrawf({ drawFeature: !checked }));
+    };
+    const activebtn2 = () => {
+        setChecked2((prevChecked) => !prevChecked);
+        dispatch(activeSwitchf({ switchFeature: !checked2 }));
     };
 
     return (
         <>
             {!matchesXs && <Search />}
             {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
+            <IconButton
+                onClick={activebtn2}
+                target="_blank"
+                disableRipple
+                color="secondary"
+                title="지도 목록"
+                sx={{ color: 'text.primary', bgcolor: 'grey.100', mr: 0.75 }}
+            >
+                <ConstructionIcon />
+            </IconButton>
             <IconButton
                 onClick={activebtn}
                 target="_blank"

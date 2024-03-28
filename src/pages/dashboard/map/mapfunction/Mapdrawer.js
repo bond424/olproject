@@ -3,29 +3,57 @@ import 'ol/ol.css'; //스타일
 import { Vector as VectorLayer } from 'ol/layer';
 import { Grid, Box, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { activeItem, activeDrawf } from 'store/reducers/menu';
+import { setFeatureLayer } from 'store/slice/layerSlice';
 import { Fill, Stroke, Style } from 'ol/style.js';
 import { Draw, Select, Translate, defaults as defaultInteractions } from 'ol/interaction.js';
+import { Vector as VectorSource } from 'ol/source.js';
 
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import CropSquareIcon from '@mui/icons-material/CropSquare';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
+import LayersIcon from '@mui/icons-material/Layers';
+
+import { vectorD } from 'store/reducers/menu';
 
 const Mapdrawer = (props) => {
-    const { drawFeature } = useSelector((state) => state.menu);
+    const dispatch = useDispatch();
+    const { vectordLayer } = useSelector((state) => state.menu);
     const { map, source } = props;
-    const [tySelect, settySelect] = useState(null);
-    const vectord = new VectorLayer({
-        source: source
-    });
 
     const dmap = map.map;
+    const [vectordLayerInfo, setVectordLayerInfo] = useState(null);
+    const [layerStack, setlayerStack] = useState([]);
 
-    dmap.addLayer(vectord);
+    // 레이어 생성
+    function addvctLayer() {
+        const newVectordLayerInfo = new VectorLayer({
+            source: source,
+            name: 'vectord'
+        });
+        dmap.addLayer(newVectordLayerInfo);
+        setlayerStack((Stack) => [...Stack, newVectordLayerInfo]);
+        setVectordLayerInfo(newVectordLayerInfo);
+    }
 
-    let select = null; // ref to currently selected interaction
+    // 레이어 삭제
+    function removevctLayer(delayer) {
+        //updatedStack.forEach((feature) => source.addFeature(feature));
+        delayer.forEach((x) => dmap.removeLayer(x));
+        setVectordLayerInfo(null);
+    }
+
+    useEffect(() => {
+        return () => {
+            // 언마운트 될 때 레이어 삭제
+            if (layerStack.length > 0) {
+                removevctLayer(layerStack);
+            }
+        };
+    }, [layerStack]);
+
+    let select = null;
 
     const selected = new Style({
         fill: new Fill({
@@ -60,7 +88,7 @@ const Mapdrawer = (props) => {
 
     const [undoStack, setUndoStack] = useState([]);
     const [draw, setdraw] = useState(null);
-    let drawlayer;
+    let drawlayer = null;
 
     useEffect(() => {
         // Ctrl + Z 키 입력 시
@@ -78,6 +106,9 @@ const Mapdrawer = (props) => {
     }, [undoStack]);
 
     function addInteraction(btnid) {
+        if (vectordLayerInfo === null) {
+            return;
+        }
         if (draw !== null) {
             dmap.removeInteraction(draw);
         }
@@ -90,7 +121,6 @@ const Mapdrawer = (props) => {
             dmap.addInteraction(drawlayer);
             setdraw(drawlayer);
         }
-        settySelect(btnid);
     }
 
     function saveDrawnFeature(event) {
@@ -113,6 +143,16 @@ const Mapdrawer = (props) => {
         <div class="row" style={{ position: 'fixed', zIndex: '1100', padding: '10px' }}>
             <div class="col-auto">
                 <Box sx={{ display: 'flex' }}>
+                    <Button
+                        onClick={() => addvctLayer()}
+                        component="label"
+                        sx={{ mr: 0.75 }}
+                        variant="contained"
+                        color="error"
+                        startIcon={<LayersIcon />}
+                    >
+                        레이어 생성
+                    </Button>
                     <Button
                         onClick={() => addInteraction('Point')}
                         component="label"

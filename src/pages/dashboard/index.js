@@ -18,7 +18,7 @@ import {
     Typography
 } from '@mui/material';
 
-import OlMap from './BaseMap';
+import OlMap from './map/BaseMap';
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
