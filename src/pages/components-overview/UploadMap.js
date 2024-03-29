@@ -17,7 +17,6 @@ import MousePosition from 'ol/control/MousePosition';
 import { defaults as defaultControls } from 'ol/control.js';
 import { createStringXY } from 'ol/coordinate.js';
 import { Grid, InputLabel, Container, MenuItem, FormControl, Select, Typography, Button } from '@mui/material';
-
 const key = 'get_your_own_D6rA4zTHduk6KOKTXzGB';
 
 proj4.defs([
@@ -46,10 +45,10 @@ const UploadMap = () => {
                     FORMAT: 'image/png',
                     VERSION: '1.1.1'
                 },
-                name: 'B1',
-                visible: false,
                 serverType: 'geoserver'
-            })
+            }),
+            name: 'B1',
+            visible: false
         });
 
         const gifB_2 = new TileLayer({
@@ -61,10 +60,10 @@ const UploadMap = () => {
                     FORMAT: 'image/png',
                     VERSION: '1.1.1'
                 },
-                name: 'B2',
-                visible: false,
                 serverType: 'geoserver'
-            })
+            }),
+            name: 'B2',
+            visible: false
         });
 
         const gifB_3 = new TileLayer({
@@ -76,10 +75,10 @@ const UploadMap = () => {
                     FORMAT: 'image/png',
                     VERSION: '1.1.1'
                 },
-                name: 'B3',
-                visible: false,
                 serverType: 'geoserver'
-            })
+            }),
+            name: 'B3',
+            visible: false
         });
 
         const gifB_4 = new TileLayer({
@@ -91,10 +90,10 @@ const UploadMap = () => {
                     FORMAT: 'image/png',
                     VERSION: '1.1.1'
                 },
-                name: 'B4',
-                visible: false,
                 serverType: 'geoserver'
-            })
+            }),
+            name: 'B4',
+            visible: false
         });
 
         const gifB_5 = new TileLayer({
@@ -106,10 +105,10 @@ const UploadMap = () => {
                     FORMAT: 'image/png',
                     VERSION: '1.1.1'
                 },
-                name: 'B5',
-                visible: false,
                 serverType: 'geoserver'
-            })
+            }),
+            name: 'B5',
+            visible: false
         });
 
         const gifB_6 = new TileLayer({
@@ -121,10 +120,10 @@ const UploadMap = () => {
                     FORMAT: 'image/png',
                     VERSION: '1.1.1'
                 },
-                name: 'B6',
-                visible: false,
                 serverType: 'geoserver'
-            })
+            }),
+            name: 'B6',
+            visible: false
         });
 
         const gifB_7 = new TileLayer({
@@ -136,10 +135,10 @@ const UploadMap = () => {
                     FORMAT: 'image/png',
                     VERSION: '1.1.1'
                 },
-                name: 'B7',
-                visible: false,
                 serverType: 'geoserver'
-            })
+            }),
+            name: 'B7',
+            visible: false
         });
 
         const gifS_1 = new TileLayer({
@@ -151,10 +150,10 @@ const UploadMap = () => {
                     FORMAT: 'image/png',
                     VERSION: '1.1.1'
                 },
-                name: 'S1',
-                visible: false,
                 serverType: 'geoserver'
-            })
+            }),
+            name: 'S1',
+            visible: false
         });
 
         const gifS_2 = new TileLayer({
@@ -166,10 +165,10 @@ const UploadMap = () => {
                     FORMAT: 'image/png',
                     VERSION: '1.1.1'
                 },
-                name: 'S2',
-                visible: false,
                 serverType: 'geoserver'
-            })
+            }),
+            name: 'S2',
+            visible: false
         });
 
         const gifS_3 = new TileLayer({
@@ -184,7 +183,9 @@ const UploadMap = () => {
                 name: 'S3',
                 visible: false,
                 serverType: 'geoserver'
-            })
+            }),
+            name: 'S3',
+            visible: false
         });
 
         const gifS_4 = new TileLayer({
@@ -196,10 +197,10 @@ const UploadMap = () => {
                     FORMAT: 'image/png',
                     VERSION: '1.1.1'
                 },
-                name: 'S4',
-                visible: false,
                 serverType: 'geoserver'
-            })
+            }),
+            name: 'S4',
+            visible: false
         });
 
         const geoTiffLayer3 = new TileLayer({
@@ -309,11 +310,6 @@ const UploadMap = () => {
             const pixel = map.getEventPixel(evt.originalEvent);
             displayFeatureInfo(pixel);
         });
-
-        // map.on('click', function (evt) {
-        //     displayFeatureInfo(evt.pixel);
-        // });
-        return () => map.setTarget(undefined);
     }, []);
 
     const [maptif, setmaptif] = useState();
@@ -327,7 +323,7 @@ const UploadMap = () => {
             }
             layer.setVisible(false);
         });
-
+        console.log(mapObject.map.getLayers());
         mapObject.map.getLayers().forEach((layer) => {
             if (layer.get('name') === value) {
                 layer.setVisible(true);
