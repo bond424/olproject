@@ -174,7 +174,9 @@ const UploadMap = () => {
         const gifS_3 = new TileLayer({
             source: new TileWMS({
                 url: newkalayer,
+                url: newkalayer,
                 params: {
+                    LAYERS: 'test2:코스타나이_202406_식생지수',
                     LAYERS: 'test2:코스타나이_202406_식생지수',
                     TILED: true,
                     FORMAT: 'image/png',

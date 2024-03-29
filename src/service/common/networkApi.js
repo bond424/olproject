@@ -1,5 +1,5 @@
-// import { SERVER_URL } from "service/consts";
-// import createApi from "./commonApi";
+// import { SERVER_URL } from 'service/consts';
+// import createApi from './commonApi';
 
 // const networkApi = createApi(SERVER_URL);
 
