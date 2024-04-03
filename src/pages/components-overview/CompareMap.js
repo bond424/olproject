@@ -22,7 +22,7 @@ proj4.defs([
 ]);
 register(proj4);
 
-const UploadMap = () => {
+const CompareMap = () => {
     const [mapObject, setMapObject] = useState({});
 
     const vectorLayer = new VectorLayer({
@@ -43,7 +43,7 @@ const UploadMap = () => {
                     })
                 })
             ],
-            target: 'uploadmap',
+            target: 'comparemap',
             view: new View({
                 projection: getProjection('EPSG:5179'),
                 center: transformedCenter,
@@ -130,6 +130,6 @@ const UploadMap = () => {
         return () => map.setTarget(undefined);
     }, []);
 
-    return <div id="uploadmap" value={mapObject} style={{ width: '100%', height: '55rem' }}></div>;
+    return <div id="comparemap" value={mapObject} style={{ width: '100%', height: '55rem' }}></div>;
 };
-export default UploadMap;
+export default CompareMap;

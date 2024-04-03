@@ -7,7 +7,7 @@ const initialState = {
     vactorStack: []
 };
 
-const setFeatureLayer = createAsyncThunk('layerbase/vectorlayer', async () => {
+export const setFeatureLayer = createAsyncThunk('layerController/vectorlayer', async () => {
     const response = await layerService.setFeatureLayer();
     return response.data;
 });

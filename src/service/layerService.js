@@ -1,12 +1,9 @@
 import networkApi from './common/networkApi';
 
-const PREFIX = '/layerbase';
+const PREFIX = '/layerController';
 
 const layerService = {
-    setFeatureLayer: (info) =>
-        networkApi.get(`${PREFIX}/vectorlayer`, {
-            params: { items: JSON.stringify(info) }
-        })
+    setFeatureLayer: () => networkApi.get(`${PREFIX}/vectorlayer`)
 };
 
 export default layerService;

@@ -174,9 +174,7 @@ const UploadMap = () => {
         const gifS_3 = new TileLayer({
             source: new TileWMS({
                 url: newkalayer,
-                url: newkalayer,
                 params: {
-                    LAYERS: 'test2:코스타나이_202406_식생지수',
                     LAYERS: 'test2:코스타나이_202406_식생지수',
                     TILED: true,
                     FORMAT: 'image/png',
@@ -312,9 +310,9 @@ const UploadMap = () => {
             const pixel = map.getEventPixel(evt.originalEvent);
             displayFeatureInfo(pixel);
         });
-    }, []);
 
-    const [maptif, setmaptif] = useState();
+        return () => map.setTarget(undefined);
+    }, []);
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -337,7 +335,7 @@ const UploadMap = () => {
         <Grid container>
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                 <InputLabel id="demo-select-small-label">지도선택</InputLabel>
-                <Select labelId="demo-select-small-label" id="demo-select-small" value={maptif} label="Age" onChange={handleChange}>
+                <Select labelId="demo-select-small-label" id="demo-select-small" label="Age" onChange={handleChange}>
                     <MenuItem value="B1">카자흐스탄_코스타나이_B1</MenuItem>
                     <MenuItem value="B2">카자흐스탄_코스타나이_B2</MenuItem>
                     <MenuItem value="B3">카자흐스탄_코스타나이_B3</MenuItem>

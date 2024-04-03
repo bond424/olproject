@@ -13,6 +13,7 @@ import { Grid } from '@mui/material';
 import { Draw, Select, Translate, defaults as defaultInteractions } from 'ol/interaction.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { activeItem, activeDrawf, vectorD } from 'store/reducers/menu';
+import { setFeatureLayer } from 'store/slice/layerSlice';
 
 import Mapdrawer from './mapfunction/Mapdrawer';
 import MapSwitch from './mapfunction/MapSwitch';
@@ -36,7 +37,13 @@ const BaseMap = () => {
     const [showSetSlayer, setShowSetSlayer] = useState(true);
     const [vctLayer, setvctLayer] = useState(null);
 
+    const { featureLayer } = useSelector((state) => state.layerRedycer);
+
     const drawsource = new VectorSource({ wrapX: false });
+
+    useEffect(() => {
+        dispatch(setFeatureLayer());
+    }, []);
 
     useEffect(() => {
         const initialCenterEPSG5179 = [126.752, 37.4713];
@@ -81,6 +88,12 @@ const BaseMap = () => {
         setMapObject({ map });
         return () => map.setTarget(undefined);
     }, []);
+
+    useEffect(() => {
+        if (featureLayer.length > 0) {
+            console.log(featureLayer);
+        }
+    }, [featureLayer]);
 
     if (!mapObject) {
         return null;
