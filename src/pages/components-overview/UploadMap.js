@@ -3,8 +3,8 @@ import 'ol/ol.css'; //스타일
 import { Map as OlMap, View } from 'ol'; //뷰 관리
 import { GPX, GeoJSON, IGC, KML, TopoJSON } from 'ol/format.js';
 import { fromLonLat, get as getProjection } from 'ol/proj'; //위경도
-import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'; //지도타일
-import { OSM, TileWMS } from 'ol/source'; // OpenStreetMap source
+import { Tile as TileLayer, Vector as VectorLayer, Image as ImageLayer } from 'ol/layer'; //지도타일
+import { OSM, TileWMS, ImageWMS } from 'ol/source'; // OpenStreetMap source
 import XYZ from 'ol/source/XYZ.js';
 import { Vector as VectorSource } from 'ol/source.js';
 import DragAndDrop from 'ol/interaction/DragAndDrop.js';
@@ -32,15 +32,16 @@ const UploadMap = () => {
     const [mapObject, setMapObject] = useState({});
     const newkalayer1 = 'http://localhost:8099/geoserver/test/wms';
     const newkalayer = 'http://localhost:8099/geoserver/test2/wms';
+    const clayer = 'http://localhost:8099/geoserver/coas/wms';
 
     useEffect(() => {
         const geoserverWMSUrl3 = 'http://localhost:8099/geoserver/test/wms';
 
-        const gifB_1 = new TileLayer({
-            source: new TileWMS({
-                url: newkalayer1,
+        const gifB_1 = new ImageLayer({
+            source: new ImageWMS({
+                url: clayer,
                 params: {
-                    LAYERS: 'test:카자흐스탄_코스타나이_B1',
+                    LAYERS: 'coas:카자흐스탄_코스타나이_B1',
                     TILED: true,
                     FORMAT: 'image/png',
                     VERSION: '1.1.1'
@@ -48,11 +49,11 @@ const UploadMap = () => {
                 serverType: 'geoserver'
             }),
             name: 'B1',
-            visible: false
+            visible: true
         });
 
-        const gifB_2 = new TileLayer({
-            source: new TileWMS({
+        const gifB_2 = new ImageLayer({
+            source: new ImageWMS({
                 url: newkalayer,
                 params: {
                     LAYERS: 'test2:카자흐스탄_코스타나이_B2',
@@ -66,8 +67,8 @@ const UploadMap = () => {
             visible: false
         });
 
-        const gifB_3 = new TileLayer({
-            source: new TileWMS({
+        const gifB_3 = new ImageLayer({
+            source: new ImageWMS({
                 url: newkalayer,
                 params: {
                     LAYERS: 'test2:카자흐스탄_코스타나이_B3',
@@ -81,8 +82,8 @@ const UploadMap = () => {
             visible: false
         });
 
-        const gifB_4 = new TileLayer({
-            source: new TileWMS({
+        const gifB_4 = new ImageLayer({
+            source: new ImageWMS({
                 url: newkalayer,
                 params: {
                     LAYERS: 'test2:카자흐스탄_코스타나이_B4',
@@ -96,8 +97,8 @@ const UploadMap = () => {
             visible: false
         });
 
-        const gifB_5 = new TileLayer({
-            source: new TileWMS({
+        const gifB_5 = new ImageLayer({
+            source: new ImageWMS({
                 url: newkalayer,
                 params: {
                     LAYERS: 'test2:카자흐스탄_코스타나이_B5',
@@ -111,8 +112,8 @@ const UploadMap = () => {
             visible: false
         });
 
-        const gifB_6 = new TileLayer({
-            source: new TileWMS({
+        const gifB_6 = new ImageLayer({
+            source: new ImageWMS({
                 url: newkalayer,
                 params: {
                     LAYERS: 'test2:카자흐스탄_코스타나이_B6',
@@ -126,8 +127,8 @@ const UploadMap = () => {
             visible: false
         });
 
-        const gifB_7 = new TileLayer({
-            source: new TileWMS({
+        const gifB_7 = new ImageLayer({
+            source: new ImageWMS({
                 url: newkalayer,
                 params: {
                     LAYERS: 'test2:카자흐스탄_코스타나이_B7',
@@ -180,8 +181,6 @@ const UploadMap = () => {
                     FORMAT: 'image/png',
                     VERSION: '1.1.1'
                 },
-                name: 'S3',
-                visible: false,
                 serverType: 'geoserver'
             }),
             name: 'S3',
@@ -316,17 +315,12 @@ const UploadMap = () => {
 
     const handleChange = (event) => {
         const value = event.target.value;
-
+        console.log(value);
         mapObject.map.getLayers().forEach((layer) => {
-            if (layer.get('name') === 'basemap') {
+            if (layer.get('name') === value || layer.get('name') === 'basemap') {
                 layer.setVisible(true);
-            }
-            layer.setVisible(false);
-        });
-        console.log(mapObject.map.getLayers());
-        mapObject.map.getLayers().forEach((layer) => {
-            if (layer.get('name') === value) {
-                layer.setVisible(true);
+            } else {
+                layer.setVisible(false);
             }
         });
     };
@@ -343,9 +337,9 @@ const UploadMap = () => {
                     <MenuItem value="B5">카자흐스탄_코스타나이_B5</MenuItem>
                     <MenuItem value="B6">카자흐스탄_코스타나이_B6</MenuItem>
                     <MenuItem value="B7">카자흐스탄_코스타나이_B7</MenuItem>
-                    <MenuItem value="S1">코스타나이_202403_식생지수</MenuItem>
-                    <MenuItem value="S2">코스타나이_202406_식생지수</MenuItem>
-                    <MenuItem value="S3">코스타나이_20231017_RGB</MenuItem>
+                    <MenuItem value="S1">코스타나이_20231017_RGB</MenuItem>
+                    <MenuItem value="S2">코스타나이_202403_식생지수</MenuItem>
+                    <MenuItem value="S3">코스타나이_202406_식생지수</MenuItem>
                     <MenuItem value="S4">코스타나이_위성영상</MenuItem>
                 </Select>
             </FormControl>
