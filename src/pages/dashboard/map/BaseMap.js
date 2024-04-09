@@ -32,10 +32,10 @@ const BaseMap = () => {
     const { drawFeature, switchFeature } = useSelector((state) => state.menu);
     // const drawsource = new VectorSource({ wrapX: false });
     const { getLayerUrl, vctDrawer, vectordLayer } = useSelector((state) => state.menu);
-    const [tileLayerUrl, setTileLayerUrl] = useState();
-    const [showMainLayer, setShowMainLayer] = useState(true);
-    const [showSetSlayer, setShowSetSlayer] = useState(true);
-    const [vctLayer, setvctLayer] = useState(null);
+    // const [tileLayerUrl, setTileLayerUrl] = useState();
+    // const [showMainLayer, setShowMainLayer] = useState(true);
+    // const [showSetSlayer, setShowSetSlayer] = useState(true);
+    // const [vctLayer, setvctLayer] = useState(null);
 
     const { featureLayer } = useSelector((state) => state.layerRedycer);
 

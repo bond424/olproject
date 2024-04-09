@@ -41,7 +41,7 @@ function ReportFor() {
         const left = window.screenX + (window.outerWidth - width) / 2;
         const top = window.screenY + (window.outerHeight - height) / 2;
         const popup = window.open(
-            'http://localhost:3000/value/reportpop',
+            'http://localhost:3000/terrasense/reportpop',
             '팝업...',
             `width=${width},height=${height},left=${left},top=${top}`
         );
