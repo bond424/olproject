@@ -12,7 +12,7 @@ import logo from 'assets/images/icons/geomatic.png';
 // ==============================|| LOGO SVG ||============================== //
 
 const Logo = () => {
-    const theme = useTheme();
+    // const theme = useTheme();
 
     return (
         /**

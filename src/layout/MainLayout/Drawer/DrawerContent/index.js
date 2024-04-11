@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-// project import
-import NavCard from './NavCard';
-import Navigation from './Navigation';
+
+// import NavCard from './NavCard';
+// import Navigation from './Navigation';
 import SimpleBar from 'components/third-party/SimpleBar';
 import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
+//import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
