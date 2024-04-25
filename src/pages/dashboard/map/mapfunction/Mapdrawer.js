@@ -19,7 +19,8 @@ import { vectorD } from 'store/reducers/menu';
 
 const Mapdrawer = (props) => {
     const dispatch = useDispatch();
-    const { vectordLayer } = useSelector((state) => state.menu);
+    // const { vectordLayer } = useSelector((state) => state.menu);
+    const { drawFeature } = useSelector((state) => state.menu);
     const { map, source } = props;
 
     const dmap = map.map;
@@ -84,7 +85,11 @@ const Mapdrawer = (props) => {
         }
     };
 
-    changeInteraction();
+    useEffect(() => {
+        if (drawFeature) {
+            changeInteraction();
+        }
+    }, [drawFeature]);
 
     const [undoStack, setUndoStack] = useState([]);
     const [draw, setdraw] = useState(null);
@@ -140,8 +145,8 @@ const Mapdrawer = (props) => {
     }
 
     return (
-        <div class="row" style={{ position: 'fixed', zIndex: '1100', padding: '10px' }}>
-            <div class="col-auto">
+        <div className="row" style={{ position: 'fixed', zIndex: '1100', padding: '10px' }}>
+            <div className="col-auto">
                 <Box sx={{ display: 'flex' }}>
                     <Button
                         onClick={() => addvctLayer()}

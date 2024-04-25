@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import 'ol/ol.css'; //스타일
 import { Map as OlMap, View } from 'ol'; //뷰 관리
 import { GPX, GeoJSON, IGC, KML, TopoJSON } from 'ol/format.js';
@@ -9,14 +9,23 @@ import XYZ from 'ol/source/XYZ.js';
 import { Vector as VectorSource } from 'ol/source.js';
 import DragAndDrop from 'ol/interaction/DragAndDrop.js';
 import proj4 from 'proj4';
-import { get } from 'ol/proj';
+// import { get } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
-import { transform } from 'ol/proj';
-import GeoTIFF from 'ol/source/GeoTIFF';
+// import { transform } from 'ol/proj';
+// import GeoTIFF from 'ol/source/GeoTIFF';
 import MousePosition from 'ol/control/MousePosition';
-import { defaults as defaultControls } from 'ol/control.js';
+// import { defaults as defaultControls } from 'ol/control.js';
+import { Select, Translate, defaults as defaultInteractions } from 'ol/interaction.js';
 import { createStringXY } from 'ol/coordinate.js';
-import { Grid, InputLabel, Container, MenuItem, FormControl, Select, Typography, Button } from '@mui/material';
+import { Grid } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import MapPopup from './mapfuc/mapoverlay';
+import Mapdrawer from './mapfuc/vcmapdrawer';
+
+import './static/uploadjs.css';
+
+import { activeDrawf } from 'store/reducers/menu';
+
 const key = 'get_your_own_D6rA4zTHduk6KOKTXzGB';
 
 proj4.defs([
@@ -24,189 +33,28 @@ proj4.defs([
         'EPSG:5179',
         '+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
     ],
-    ['EPSG:32641', '+proj=utm +zone=41 +datum=WGS84 +units=m +no_defs +type=crs']
+    [
+        'EPSG:5186',
+        '+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs'
+    ]
 ]);
 register(proj4);
 
 const UploadMap = () => {
+    const dispatch = useDispatch();
     const [mapObject, setMapObject] = useState({});
+    const [popset, setpopset] = useState(false);
     const newkalayer1 = 'http://localhost:8099/geoserver/test/wms';
-    const newkalayer = 'http://localhost:8099/geoserver/test2/wms';
-    const clayer = 'http://localhost:8099/geoserver/coas/wms';
+    const { drawFeature } = useSelector((state) => state.menu);
+    const { getLayerUrl, vctDrawer, vectordLayer } = useSelector((state) => state.menu);
+    const drawsource = new VectorSource({ wrapX: false });
 
     useEffect(() => {
-        const geoserverWMSUrl3 = 'http://localhost:8099/geoserver/test/wms';
-
         const gifB_1 = new ImageLayer({
             source: new ImageWMS({
-                url: clayer,
+                url: newkalayer1,
                 params: {
-                    LAYERS: 'coas:카자흐스탄_코스타나이_B1',
-                    TILED: true,
-                    FORMAT: 'image/png',
-                    VERSION: '1.1.1'
-                },
-                serverType: 'geoserver'
-            }),
-            name: 'B1',
-            visible: true
-        });
-
-        const gifB_2 = new ImageLayer({
-            source: new ImageWMS({
-                url: newkalayer,
-                params: {
-                    LAYERS: 'test2:카자흐스탄_코스타나이_B2',
-                    TILED: true,
-                    FORMAT: 'image/png',
-                    VERSION: '1.1.1'
-                },
-                serverType: 'geoserver'
-            }),
-            name: 'B2',
-            visible: false
-        });
-
-        const gifB_3 = new ImageLayer({
-            source: new ImageWMS({
-                url: newkalayer,
-                params: {
-                    LAYERS: 'test2:카자흐스탄_코스타나이_B3',
-                    TILED: true,
-                    FORMAT: 'image/png',
-                    VERSION: '1.1.1'
-                },
-                serverType: 'geoserver'
-            }),
-            name: 'B3',
-            visible: false
-        });
-
-        const gifB_4 = new ImageLayer({
-            source: new ImageWMS({
-                url: newkalayer,
-                params: {
-                    LAYERS: 'test2:카자흐스탄_코스타나이_B4',
-                    TILED: true,
-                    FORMAT: 'image/png',
-                    VERSION: '1.1.1'
-                },
-                serverType: 'geoserver'
-            }),
-            name: 'B4',
-            visible: false
-        });
-
-        const gifB_5 = new ImageLayer({
-            source: new ImageWMS({
-                url: newkalayer,
-                params: {
-                    LAYERS: 'test2:카자흐스탄_코스타나이_B5',
-                    TILED: true,
-                    FORMAT: 'image/png',
-                    VERSION: '1.1.1'
-                },
-                serverType: 'geoserver'
-            }),
-            name: 'B5',
-            visible: false
-        });
-
-        const gifB_6 = new ImageLayer({
-            source: new ImageWMS({
-                url: newkalayer,
-                params: {
-                    LAYERS: 'test2:카자흐스탄_코스타나이_B6',
-                    TILED: true,
-                    FORMAT: 'image/png',
-                    VERSION: '1.1.1'
-                },
-                serverType: 'geoserver'
-            }),
-            name: 'B6',
-            visible: false
-        });
-
-        const gifB_7 = new ImageLayer({
-            source: new ImageWMS({
-                url: newkalayer,
-                params: {
-                    LAYERS: 'test2:카자흐스탄_코스타나이_B7',
-                    TILED: true,
-                    FORMAT: 'image/png',
-                    VERSION: '1.1.1'
-                },
-                serverType: 'geoserver'
-            }),
-            name: 'B7',
-            visible: false
-        });
-
-        const gifS_1 = new TileLayer({
-            source: new TileWMS({
-                url: newkalayer,
-                params: {
-                    LAYERS: 'test2:코스타나이_20231017_RGB',
-                    TILED: true,
-                    FORMAT: 'image/png',
-                    VERSION: '1.1.1'
-                },
-                serverType: 'geoserver'
-            }),
-            name: 'S1',
-            visible: false
-        });
-
-        const gifS_2 = new TileLayer({
-            source: new TileWMS({
-                url: newkalayer,
-                params: {
-                    LAYERS: 'test2:코스타나이_202403_식생지수',
-                    TILED: true,
-                    FORMAT: 'image/png',
-                    VERSION: '1.1.1'
-                },
-                serverType: 'geoserver'
-            }),
-            name: 'S2',
-            visible: false
-        });
-
-        const gifS_3 = new TileLayer({
-            source: new TileWMS({
-                url: newkalayer,
-                params: {
-                    LAYERS: 'test2:코스타나이_202406_식생지수',
-                    TILED: true,
-                    FORMAT: 'image/png',
-                    VERSION: '1.1.1'
-                },
-                serverType: 'geoserver'
-            }),
-            name: 'S3',
-            visible: false
-        });
-
-        const gifS_4 = new TileLayer({
-            source: new TileWMS({
-                url: newkalayer,
-                params: {
-                    LAYERS: 'test2:코스타나이_위성영상',
-                    TILED: true,
-                    FORMAT: 'image/png',
-                    VERSION: '1.1.1'
-                },
-                serverType: 'geoserver'
-            }),
-            name: 'S4',
-            visible: false
-        });
-
-        const geoTiffLayer3 = new TileLayer({
-            source: new TileWMS({
-                url: geoserverWMSUrl3,
-                params: {
-                    LAYERS: 'test:Ortho_5179',
+                    LAYERS: 'test:35602079s',
                     TILED: true,
                     FORMAT: 'image/png',
                     VERSION: '1.1.1'
@@ -218,12 +66,6 @@ const UploadMap = () => {
         // geoTiffLayer.getSource().on('error', function (event) {
         //     console.error('GeoTIFF 소스 로딩 중 오류 발생:', event);
         // });
-
-        const initialCenterEPSG5179 = [126.8570817, 35.1723225];
-        const initialCenterEPSG32641 = [546615.0418, 5891548.3976];
-
-        const transformedCenter = transform(initialCenterEPSG32641, 'EPSG:4326', 'EPSG:32641');
-
         const baseMapLayer = new TileLayer({
             source: new XYZ({
                 attributions: '',
@@ -232,17 +74,39 @@ const UploadMap = () => {
             name: 'basemap'
         });
 
-        const map = new OlMap({
-            layers: [baseMapLayer, gifB_1, gifB_2, gifB_3, gifB_4, gifB_5, gifB_6, gifB_7, gifS_1, gifS_2, gifS_3, gifS_4],
-            target: 'uploadmap',
-            view: new View({
-                projection: getProjection('EPSG:32641'),
-                center: [542553.48129, 5892576.3976],
-                zoom: 11
-            })
+        const mainlayer = new TileLayer({
+            source: new XYZ({
+                attributions: '',
+                url: getLayerUrl
+            }),
+            visible: true,
+            name: 'mainlayer'
         });
 
-        setMapObject({ map });
+        const mousePositionControl = new MousePosition({
+            coordinateFormat: createStringXY(4),
+            projection: 'EPSG:4326',
+            className: 'custom-mouse-position',
+            target: document.getElementById('mouse-position')
+        });
+
+        const select = new Select();
+
+        const translate = new Translate({
+            features: select.getFeatures()
+        });
+
+        const map = new OlMap({
+            //controls: defaultControls().extend([mousePositionControl]),
+            interactions: defaultInteractions().extend([select, translate]),
+            layers: [baseMapLayer],
+            target: 'uploadmap',
+            view: new View({
+                projection: getProjection('EPSG:4326'),
+                center: [126.5337, 34.8419],
+                zoom: 16
+            })
+        });
 
         const vectorLayer = new VectorLayer({
             source: new VectorSource()
@@ -310,40 +174,22 @@ const UploadMap = () => {
             displayFeatureInfo(pixel);
         });
 
+        setMapObject({ map });
+        setpopset(true);
         return () => map.setTarget(undefined);
     }, []);
 
-    const handleChange = (event) => {
-        const value = event.target.value;
-        console.log(value);
-        mapObject.map.getLayers().forEach((layer) => {
-            if (layer.get('name') === value || layer.get('name') === 'basemap') {
-                layer.setVisible(true);
-            } else {
-                layer.setVisible(false);
-            }
-        });
-    };
+    if (!mapObject) {
+        return null;
+    }
 
     return (
         <Grid container>
-            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                <InputLabel id="demo-select-small-label">지도선택</InputLabel>
-                <Select labelId="demo-select-small-label" id="demo-select-small" label="Age" onChange={handleChange}>
-                    <MenuItem value="B1">카자흐스탄_코스타나이_B1</MenuItem>
-                    <MenuItem value="B2">카자흐스탄_코스타나이_B2</MenuItem>
-                    <MenuItem value="B3">카자흐스탄_코스타나이_B3</MenuItem>
-                    <MenuItem value="B4">카자흐스탄_코스타나이_B4</MenuItem>
-                    <MenuItem value="B5">카자흐스탄_코스타나이_B5</MenuItem>
-                    <MenuItem value="B6">카자흐스탄_코스타나이_B6</MenuItem>
-                    <MenuItem value="B7">카자흐스탄_코스타나이_B7</MenuItem>
-                    <MenuItem value="S1">코스타나이_20231017_RGB</MenuItem>
-                    <MenuItem value="S2">코스타나이_202403_식생지수</MenuItem>
-                    <MenuItem value="S3">코스타나이_202406_식생지수</MenuItem>
-                    <MenuItem value="S4">코스타나이_위성영상</MenuItem>
-                </Select>
-            </FormControl>
-            <div id="uploadmap" value={mapObject} style={{ width: '100%', height: '50rem' }}></div>
+            <div id="uploadmap" value={mapObject} style={{ width: '100%', height: '62.3rem' }}>
+                {popset && <MapPopup map={mapObject} />}
+            </div>
+            {drawFeature && <Mapdrawer map={mapObject} source={drawsource} />}
+            {/* et~등등 선택자 사용해야됨 안그러면 에러발생 서로 다른 태그안에 삽입 */}
         </Grid>
     );
 };

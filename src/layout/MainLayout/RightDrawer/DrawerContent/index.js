@@ -101,8 +101,8 @@ function DrawerContent() {
                     className={classes.tabs}
                 >
                     <Tab label="보고서 작성" className={classes.tabLabel} {...a11yProps(0)} />
-                    <Tab label="구간정보" className={classes.tabLabel} {...a11yProps(1)} />
-                    <Tab label="포인트 클라우드" className={classes.tabLabel} {...a11yProps(2)} />
+                    <Tab label="레이어 목록" className={classes.tabLabel} {...a11yProps(1)} />
+                    <Tab label="농경지 가져오기" className={classes.tabLabel} {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0} dir={theme.direction}>
@@ -112,7 +112,7 @@ function DrawerContent() {
                 <RoadinFor />
             </TabPanel>
             <TabPanel value={value} index={2} dir={theme.direction}>
-                Item Three
+                *
             </TabPanel>
             {/* <Navigation /> */}
         </SimpleBar>

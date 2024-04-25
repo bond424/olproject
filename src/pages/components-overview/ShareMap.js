@@ -5,10 +5,10 @@ import { GPX, GeoJSON, IGC, KML, TopoJSON } from 'ol/format.js';
 import { fromLonLat, get as getProjection } from 'ol/proj'; //위경도
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'; //지도타일
 import XYZ from 'ol/source/XYZ.js';
-import { Vector as VectorSource } from 'ol/source.js';
-import DragAndDrop from 'ol/interaction/DragAndDrop.js';
+// import { Vector as VectorSource } from 'ol/source.js';
+// import DragAndDrop from 'ol/interaction/DragAndDrop.js';
 import proj4 from 'proj4';
-import { get } from 'ol/proj';
+// import { get } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
 import { transform } from 'ol/proj';
 

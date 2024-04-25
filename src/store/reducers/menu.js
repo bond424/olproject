@@ -10,6 +10,8 @@ const initialState = {
     componentDrawerOpen: true,
     drawFeature: false,
     switchFeature: false,
+    vcdrawFeature: false,
+    switchvctFeature: false,
     getLayerUrl: 'https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=get_your_own_D6rA4zTHduk6KOKTXzGB',
     drawsource: null,
     vectordLayer: null
@@ -49,12 +51,20 @@ const menu = createSlice({
             state.switchFeature = action.payload.switchFeature;
         },
 
+        activevcDrawf(state, action) {
+            state.vcdrawFeature = action.payload.vcdrawFeature;
+        },
+
         chageMap(state, action) {
             state.getLayerUrl = action.payload.getLayerUrl;
         },
 
         vctDrawer(state, action) {
             state.drawsource = action.payload.drawsource;
+        },
+
+        activevctSwitchf(state, action) {
+            state.switchvctFeature = action.payload.switchvctFeature;
         },
 
         vectorD(state, action) {
@@ -75,5 +85,7 @@ export const {
     chageMap,
     activeSwitchf,
     vctDrawer,
-    vectorD
+    vectorD,
+    activevcDrawf,
+    activevctSwitchf
 } = menu.actions;

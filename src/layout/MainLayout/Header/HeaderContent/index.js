@@ -25,7 +25,8 @@ const HeaderContent = () => {
 
     const dispatch = useDispatch();
     const menu = useSelector((state) => state.menu);
-    const { openItem } = menu;
+    const { drawFeature } = useSelector((state) => state.menu);
+    // const { openItem } = menu;
 
     let itemTarget = '_self';
 
@@ -33,21 +34,26 @@ const HeaderContent = () => {
     let dashItemProps = { component: forwardRef((props, ref) => <RouterLink ref={ref} {...props} to={'/'} target={itemTarget} />) };
     let fileProps = { component: forwardRef((props, ref) => <RouterLink ref={ref} {...props} to={'/uploadmap'} target={itemTarget} />) };
     let reportpopup = { component: forwardRef((props, ref) => <RouterLink ref={ref} {...props} to={'/reportpop'} target={itemTarget} />) };
-    const itemHandler = (id) => {
-        dispatch(activeItem({ openItem: [id] }));
-    };
 
-    const [checked, setChecked] = useState(false);
     const [checked2, setChecked2] = useState(false);
+
     const activebtn = () => {
-        setChecked((prevChecked) => !prevChecked);
-        dispatch(activeDrawf({ drawFeature: !checked }));
+        if (drawFeature) {
+            dispatch(activeDrawf({ drawFeature: false }));
+        } else {
+            dispatch(activeDrawf({ drawFeature: true }));
+        }
+        // setChecked((prevChecked) => !prevChecked);
     };
     const activebtn2 = () => {
         setChecked2((prevChecked) => !prevChecked);
         dispatch(activeSwitchf({ switchFeature: !checked2 }));
     };
 
+    const itemHandler = (id) => {
+        dispatch(activeItem({ openItem: [id] }));
+        dispatch(activeDrawf({ drawFeature: false }));
+    };
     return (
         <>
             {!matchesXs && <Search />}

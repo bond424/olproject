@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import 'ol/ol.css'; //스타일
 import { Map as OlMap, View } from 'ol'; //뷰 관리
-import { fromLonLat, get as getProjection } from 'ol/proj'; //위경도
+import { get as getProjection } from 'ol/proj'; //위경도
 import { Tile as TileLayer, Vector as VectorLayer, Group as LayerGroup } from 'ol/layer'; //지도타일
 import XYZ from 'ol/source/XYZ.js';
 import proj4 from 'proj4';
 import { OSM, Vector as VectorSource } from 'ol/source.js';
-import { get } from 'ol/proj';
+// import { get } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
 import { transform } from 'ol/proj';
 import { Grid } from '@mui/material';
-import { Draw, Select, Translate, defaults as defaultInteractions } from 'ol/interaction.js';
+import { Select, Translate, defaults as defaultInteractions } from 'ol/interaction.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { activeItem, activeDrawf, vectorD } from 'store/reducers/menu';
 import { setFeatureLayer } from 'store/slice/layerSlice';
+import { activeDrawf } from 'store/reducers/menu';
 
 import Mapdrawer from './mapfunction/Mapdrawer';
 import MapSwitch from './mapfunction/MapSwitch';
@@ -42,7 +42,8 @@ const BaseMap = () => {
     const drawsource = new VectorSource({ wrapX: false });
 
     useEffect(() => {
-        dispatch(setFeatureLayer());
+        dispatch(activeDrawf({ drawFeature: false }));
+        // dispatch(setFeatureLayer());
     }, []);
 
     useEffect(() => {

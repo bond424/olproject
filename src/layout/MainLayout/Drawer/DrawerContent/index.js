@@ -52,7 +52,7 @@ function a11yProps(index) {
 const useStyles = makeStyles({
     tabLabel: {
         fontFamily: 'YourFont',
-        fontSize: '15px',
+        fontSize: '14px',
         fontWeight: 'bold'
     },
     tabs: {
@@ -97,7 +97,7 @@ function DrawerContent() {
                 >
                     <Tab label="데이터보기" className={classes.tabLabel} {...a11yProps(0)} />
                     <Tab label="검색보기" className={classes.tabLabel} {...a11yProps(1)} />
-                    <Tab label="분석보기" className={classes.tabLabel} {...a11yProps(2)} />
+                    <Tab label="레이어 목록" className={classes.tabLabel} {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0} dir={theme.direction}>
