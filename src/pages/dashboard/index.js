@@ -19,13 +19,16 @@ import {
 } from '@mui/material';
 
 import OlMap from './map/BaseMap';
+import BaseUI from './map/BaseMapUI';
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 const DashboardDefault = () => {
     return (
         <Grid container>
-            <OlMap />
+            <OlMap>
+                <BaseUI />
+            </OlMap>
         </Grid>
     );
 };

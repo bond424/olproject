@@ -23,7 +23,7 @@ const Mapdrawer = (props) => {
     const { drawFeature } = useSelector((state) => state.menu);
     const { map, source } = props;
 
-    const dmap = map.map;
+    const dmap = map;
     const [vectordLayerInfo, setVectordLayerInfo] = useState(null);
     const [layerStack, setlayerStack] = useState([]);
 

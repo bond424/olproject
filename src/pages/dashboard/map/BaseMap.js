@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setFeatureLayer } from 'store/slice/layerSlice';
 import { activeDrawf } from 'store/reducers/menu';
 
+import MapContext from './MapContext';
 import Mapdrawer from './mapfunction/Mapdrawer';
 import MapSwitch from './mapfunction/MapSwitch';
 
@@ -26,7 +27,7 @@ proj4.defs([
 ]);
 register(proj4);
 
-const BaseMap = () => {
+const BaseMap = ({ children }) => {
     const dispatch = useDispatch();
     const [mapObject, setMapObject] = useState({});
     const { drawFeature, switchFeature } = useSelector((state) => state.menu);
@@ -100,12 +101,13 @@ const BaseMap = () => {
         return null;
     }
 
-    return (
-        <Grid container>
-            {switchFeature && <MapSwitch map={mapObject} />}
-            {drawFeature && <Mapdrawer map={mapObject} source={drawsource} />}
-            <div id="map" value={mapObject} style={{ width: '100%', height: '61rem' }}></div>
-        </Grid>
-    );
+    return <MapContext.Provider value={mapObject}>{children}</MapContext.Provider>;
+    // return (
+    // <Grid container>
+    //     {switchFeature && <MapSwitch map={mapObject} />}
+    //     {drawFeature && <Mapdrawer map={mapObject} source={drawsource} />}
+    //     <div id="map" value={mapObject} style={{ width: '100%', height: '61rem' }}></div>
+    // </Grid>
+    // );
 };
 export default BaseMap;

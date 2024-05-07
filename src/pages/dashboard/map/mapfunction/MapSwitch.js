@@ -10,8 +10,8 @@ import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 
 const MapSwitch = (props) => {
     const dispatch = useDispatch();
-    const { map, source } = props;
-    const dmap = map.map;
+    const { map } = props;
+    const dmap = map;
     console.log(dmap);
 
     const dlayers = dmap.getAllLayers();
