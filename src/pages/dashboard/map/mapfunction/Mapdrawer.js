@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import 'ol/ol.css'; //스타일
-import { Vector as VectorLayer } from 'ol/layer';
-import { Grid, Box, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFeatureLayer } from 'store/slice/layerSlice';
-import { Fill, Stroke, Style } from 'ol/style.js';
-import { Draw, Select, Translate, defaults as defaultInteractions } from 'ol/interaction.js';
+import { Vector as VectorLayer } from 'ol/layer';
+import { Box, Button } from '@mui/material';
+import { Draw, Modify } from 'ol/interaction.js';
 import { Vector as VectorSource } from 'ol/source.js';
+import { Circle as CircleStyle, Fill, RegularShape, Stroke, Style, Text } from 'ol/style.js';
+import { Select, Translate } from 'ol/interaction.js';
 
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
@@ -15,133 +14,123 @@ import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import LayersIcon from '@mui/icons-material/Layers';
 
-import { vectorD } from 'store/reducers/menu';
+import StyleFunction from './StyleFunction';
+import { getTipPoint } from './context/letpoint';
 
 const Mapdrawer = (props) => {
     const dispatch = useDispatch();
     // const { vectordLayer } = useSelector((state) => state.menu);
     const { drawFeature } = useSelector((state) => state.menu);
-    const { map, source } = props;
+    const { map } = props;
 
-    const dmap = map;
-    const [vectordLayerInfo, setVectordLayerInfo] = useState(null);
-    const [layerStack, setlayerStack] = useState([]);
+    const typeSelect = document.getElementById('type');
+    const showSegments = document.getElementById('segments');
+    //const clearPrevious = document.getElementById('clear');
 
-    // 레이어 생성
-    function addvctLayer() {
-        const newVectordLayerInfo = new VectorLayer({
-            source: source,
-            name: 'vectord'
-        });
-        dmap.addLayer(newVectordLayerInfo);
-        setlayerStack((Stack) => [...Stack, newVectordLayerInfo]);
-        setVectordLayerInfo(newVectordLayerInfo);
-    }
-
-    // 레이어 삭제
-    function removevctLayer(delayer) {
-        //updatedStack.forEach((feature) => source.addFeature(feature));
-        delayer.forEach((x) => dmap.removeLayer(x));
-        setVectordLayerInfo(null);
-    }
-
-    useEffect(() => {
-        return () => {
-            // 언마운트 될 때 레이어 삭제
-            if (layerStack.length > 0) {
-                removevctLayer(layerStack);
-            }
-        };
-    }, [layerStack]);
-
-    let select = null;
-
-    const selected = new Style({
-        fill: new Fill({
-            color: '#eeeeee'
+    const modifyStyle = new Style({
+        image: new CircleStyle({
+            radius: 5,
+            stroke: new Stroke({
+                color: 'rgba(0, 0, 0, 0.7)'
+            }),
+            fill: new Fill({
+                color: 'rgba(0, 0, 0, 0.4)'
+            })
         }),
-        stroke: new Stroke({
-            color: 'rgba(255, 255, 255, 0.7)',
-            width: 2
+        text: new Text({
+            text: 'Drag to modify',
+            font: '12px Calibri,sans-serif',
+            fill: new Fill({
+                color: 'rgba(255, 255, 255, 1)'
+            }),
+            backgroundFill: new Fill({
+                color: 'rgba(0, 0, 0, 0.7)'
+            }),
+            padding: [2, 2, 2, 2],
+            textAlign: 'left',
+            offsetX: 15
         })
     });
 
-    function selectStyle(feature) {
-        const color = feature.get('COLOR') || '#eeeeee';
-        selected.getFill().setColor(color);
-        return selected;
-    }
+    const source = new VectorSource();
 
-    // select interaction working on "singleclick"
-    const selectSingleClick = new Select({ style: selectStyle });
+    const modify = new Modify({ source: source, style: modifyStyle });
 
-    const changeInteraction = function () {
-        if (select !== null) {
-            dmap.removeInteraction(select);
+    const vector = new VectorLayer({
+        source: source,
+        style: function (feature) {
+            return StyleFunction(feature);
+            // return StyleFunction(feature, showSegments.checked);
         }
-        select = selectSingleClick;
-        if (select !== null) {
-            dmap.addInteraction(select);
-        }
-    };
+    });
 
-    useEffect(() => {
-        if (drawFeature) {
-            changeInteraction();
-        }
-    }, [drawFeature]);
+    map.addLayer(vector);
+    map.addInteraction(modify);
 
-    const [undoStack, setUndoStack] = useState([]);
-    const [draw, setdraw] = useState(null);
-    let drawlayer = null;
+    const select = new Select();
 
-    useEffect(() => {
-        // Ctrl + Z 키 입력 시
-        const handleKeyDown = (event) => {
-            if (event.ctrlKey && event.key === 'z') {
-                undoLastDraw();
-            }
-        };
+    const translate = new Translate({
+        features: select.getFeatures()
+    });
 
-        window.addEventListener('keydown', handleKeyDown);
+    let draw;
 
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [undoStack]);
-
-    function addInteraction(btnid) {
-        if (vectordLayerInfo === null) {
-            return;
-        }
+    function addInteraction(typevalue) {
+        map.removeInteraction(translate);
+        map.removeInteraction(select);
         if (draw !== null) {
-            dmap.removeInteraction(draw);
+            map.removeInteraction(draw);
         }
-        if (btnid !== 'None') {
-            drawlayer = new Draw({
+        if (typevalue !== 'None') {
+            const drawType = typevalue;
+            const activeTip = 'Click to continue drawing the ' + (drawType === 'Polygon' ? 'polygon' : 'line');
+            const idleTip = 'Click to start measuring';
+            let tip = idleTip;
+
+            draw = new Draw({
                 source: source,
-                type: btnid
+                type: drawType,
+                style: function (feature) {
+                    return StyleFunction(feature, drawType, tip, modify);
+                }
             });
-            drawlayer.on('drawend', saveDrawnFeature);
-            dmap.addInteraction(drawlayer);
-            setdraw(drawlayer);
+            draw.on('drawstart', function () {
+                // if (clearPrevious.checked) {
+                //     source.clear();
+                // }
+                modify.setActive(false);
+                tip = activeTip;
+                console.log(tip);
+            });
+            draw.on('drawend', function () {
+                modifyStyle.setGeometry(getTipPoint);
+                modify.setActive(true);
+                map.once('pointermove', function () {
+                    modifyStyle.setGeometry();
+                });
+                tip = idleTip;
+                console.log(tip);
+            });
+            modify.setActive(true);
+            map.addInteraction(draw);
+            draw.getOverlay().changed();
         }
     }
 
-    function saveDrawnFeature(event) {
-        const feature = event.feature;
-        const clonedFeature = feature.clone();
-        setUndoStack((undoStack) => [...undoStack, clonedFeature]);
-    }
+    // typeSelect.onchange = function () {
+    //     map.removeInteraction(draw);
+    //     addInteraction();
+    // };
 
-    function undoLastDraw() {
-        if (undoStack.length > 0) {
-            const updatedStack = [...undoStack];
-            updatedStack.pop(); // 스택의 마지막 항목 제거
-            setUndoStack(updatedStack); // 업데이트된 스택으로 설정
-            source.clear(); // 이전 도형들을 모두 지우고
-            updatedStack.forEach((feature) => source.addFeature(feature));
-        }
+    // showSegments.onchange = function () {
+    //     vector.changed();
+    //     draw.getOverlay().changed();
+    // };
+
+    function addSelect() {
+        addInteraction('None');
+        map.addInteraction(select);
+        map.addInteraction(translate);
     }
 
     return (
@@ -193,6 +182,15 @@ const Mapdrawer = (props) => {
                         startIcon={<CircleOutlinedIcon />}
                     >
                         원형
+                    </Button>
+                    <Button
+                        onClick={() => addSelect()}
+                        component="label"
+                        sx={{ mr: 0.75 }}
+                        variant="contained"
+                        startIcon={<FilterNoneIcon />}
+                    >
+                        객체 옮기기
                     </Button>
                     <Button
                         onClick={() => addInteraction('None')}

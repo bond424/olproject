@@ -1,6 +1,5 @@
 // types
 import { createSlice } from '@reduxjs/toolkit';
-import { Vector as VectorSource } from 'ol/source.js';
 
 // initial state
 const initialState = {
@@ -13,8 +12,7 @@ const initialState = {
     vcdrawFeature: false,
     switchvctFeature: false,
     getLayerUrl: 'https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=get_your_own_D6rA4zTHduk6KOKTXzGB',
-    drawsource: null,
-    vectordLayer: null
+    drawsource: null
 };
 
 // ==============================|| SLICE - MENU ||============================== //
@@ -65,10 +63,6 @@ const menu = createSlice({
 
         activevctSwitchf(state, action) {
             state.switchvctFeature = action.payload.switchvctFeature;
-        },
-
-        vectorD(state, action) {
-            state.vectordLayer = action.payload.vectordLayer;
         }
     }
 });
@@ -85,7 +79,6 @@ export const {
     chageMap,
     activeSwitchf,
     vctDrawer,
-    vectorD,
     activevcDrawf,
     activevctSwitchf
 } = menu.actions;

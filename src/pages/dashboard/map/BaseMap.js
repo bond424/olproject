@@ -16,8 +16,6 @@ import { setFeatureLayer } from 'store/slice/layerSlice';
 import { activeDrawf } from 'store/reducers/menu';
 
 import MapContext from './MapContext';
-import Mapdrawer from './mapfunction/Mapdrawer';
-import MapSwitch from './mapfunction/MapSwitch';
 
 proj4.defs([
     [
@@ -32,7 +30,7 @@ const BaseMap = ({ children }) => {
     const [mapObject, setMapObject] = useState({});
     const { drawFeature, switchFeature } = useSelector((state) => state.menu);
     // const drawsource = new VectorSource({ wrapX: false });
-    const { getLayerUrl, vctDrawer, vectordLayer } = useSelector((state) => state.menu);
+    const { getLayerUrl } = useSelector((state) => state.menu);
     // const [tileLayerUrl, setTileLayerUrl] = useState();
     // const [showMainLayer, setShowMainLayer] = useState(true);
     // const [showSetSlayer, setShowSetSlayer] = useState(true);
@@ -48,9 +46,10 @@ const BaseMap = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        const initialCenterEPSG5179 = [126.752, 37.4713];
+        const initialCenterEPSG4326 = [126.64863, 35.7841];
+        const initialCenterEPSG3857 = [14103346.019885818, 4277262.068647152];
 
-        const transformedCenter = transform(initialCenterEPSG5179, 'EPSG:4326', 'EPSG:5179');
+        const transformedCenter = transform(initialCenterEPSG3857, 'EPSG:3857', 'EPSG:5179');
 
         const select = new Select();
 
@@ -64,7 +63,6 @@ const BaseMap = ({ children }) => {
                 attributions: '',
                 url: setl
             }),
-            visible: false,
             name: 'setSlayer'
         });
         const mainlayer = new TileLayer({
@@ -75,10 +73,11 @@ const BaseMap = ({ children }) => {
             visible: true,
             name: 'mainlayer'
         });
+        const sat = 'https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=N6cizo2S18gj0lhV1Lcv';
 
         const map = new OlMap({
-            interactions: defaultInteractions().extend([select, translate]),
-            layers: [mainlayer, setSlayer],
+            // interactions: defaultInteractions().extend([select, translate]),
+            layers: [setSlayer],
             target: 'map',
             view: new View({
                 projection: getProjection('EPSG:5179'),
@@ -102,12 +101,5 @@ const BaseMap = ({ children }) => {
     }
 
     return <MapContext.Provider value={mapObject}>{children}</MapContext.Provider>;
-    // return (
-    // <Grid container>
-    //     {switchFeature && <MapSwitch map={mapObject} />}
-    //     {drawFeature && <Mapdrawer map={mapObject} source={drawsource} />}
-    //     <div id="map" value={mapObject} style={{ width: '100%', height: '61rem' }}></div>
-    // </Grid>
-    // );
 };
 export default BaseMap;
