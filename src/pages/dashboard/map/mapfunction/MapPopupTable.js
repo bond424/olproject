@@ -7,11 +7,11 @@ function MapPopupTable(map, coordinate, selected) {
     element.classList.add('ol-popup');
     element.innerHTML = `<a id="popup-closer" class="ol-popup-closer"></a>
     <div id="popup-content">
-        <p>You clicked feature:</p>
+        <p>객체 선택됨:</p>
+        <p>객체 정보 표시 예정:</p>
         <code>${coordinate}</code>
     </div>`;
     element.style.display = 'block';
-
     const overlay = new Overlay({
         element: element,
         autoPan: true,

@@ -5,7 +5,11 @@ import Overlay from 'ol/Overlay.js';
 function MapPopup(map, coordinate, hdms) {
     let element = document.createElement('div');
     element.classList.add('ol-popup');
-    element.innerHTML = `<a id="popup-closer" class="ol-popup-closer"></a> <div id="popup-content"><p>You clicked here:</p><code>${coordinate}</code></div>`;
+    element.innerHTML = `<a id="popup-closer" class="ol-popup-closer"></a>
+    <div id="popup-content">
+        <p>객체 영역이 아닌 부분입니다:</p>
+        <code>${coordinate}</code>
+    </div>`;
     element.style.display = 'block';
 
     const overlay = new Overlay({

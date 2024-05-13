@@ -100,7 +100,6 @@ const Mapdrawer = (props) => {
                 // }
                 modify.setActive(false);
                 tip = activeTip;
-                console.log(tip);
             });
             draw.on('drawend', function () {
                 modifyStyle.setGeometry(getTipPoint);
@@ -109,7 +108,6 @@ const Mapdrawer = (props) => {
                     modifyStyle.setGeometry();
                 });
                 tip = idleTip;
-                console.log(tip);
             });
             modify.setActive(true);
             map.addInteraction(draw);
