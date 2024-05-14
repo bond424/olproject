@@ -1,13 +1,12 @@
 .ol-popup {
     position: absolute;
     background-color: white;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-    padding: 15px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+    padding: 20px;
     border-radius: 10px;
-    border: 1px solid #cccccc;
     bottom: 12px;
     left: -50px;
-    min-width: 280px;
+    width:auto;
 }
 
 .ol-popup:after,
@@ -44,4 +43,41 @@
 
 .ol-popup-closer:after {
     content: "✖";
+}
+.popTable{
+    font-size: 14px;
+    border-spacing: 0px;
+    box-sizing: content-box;
+    table-layout:fixed;
+    width:380px;
+    line-height: 29px;
+}
+.popTable>tr{
+    height:39px;
+}
+.popupTitle{
+    font-size:20px;
+    color: #0D1A29;
+}
+.trTitle{
+    background-color: #7487A3;
+    color: #ffffff;
+}
+.popTable td{
+    padding:5px;
+}
+.trTitle>td:first-child{
+    width:76px;
+}
+.trTitle>td:nth-child(2){
+    width:60px;
+}
+.trTitle>td:nth-child(3){
+    width:101px;
+}
+.trTitle>td:last-child{
+    width:138px;
+}
+.popTable>tr>td{
+    border-bottom: 1px solid #00000010;
 }
