@@ -12,7 +12,8 @@ const initialState = {
     vcdrawFeature: false,
     switchvctFeature: false,
     getLayerUrl: 'https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=get_your_own_D6rA4zTHduk6KOKTXzGB',
-    drawsource: null
+    drawsource: null,
+    getvectors: []
 };
 
 // ==============================|| SLICE - MENU ||============================== //
@@ -63,6 +64,10 @@ const menu = createSlice({
 
         activevctSwitchf(state, action) {
             state.switchvctFeature = action.payload.switchvctFeature;
+        },
+
+        filterVectorList(state, action) {
+            state.getvectors = action.payload.getvectors;
         }
     }
 });
@@ -80,5 +85,6 @@ export const {
     activeSwitchf,
     vctDrawer,
     activevcDrawf,
-    activevctSwitchf
+    activevctSwitchf,
+    filterVectorList
 } = menu.actions;

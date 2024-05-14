@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Box, Button } from '@mui/material';
@@ -13,19 +13,17 @@ import CropSquareIcon from '@mui/icons-material/CropSquare';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import LayersIcon from '@mui/icons-material/Layers';
+import MapContext from '../MapContext';
 
 import StyleFunction from './StyleFunction';
 import { getTipPoint } from './context/letpoint';
+import { addFeatureStack } from 'store/slice/layerSlice';
 
-const Mapdrawer = (props) => {
+const Mapdrawer = () => {
     const dispatch = useDispatch();
-    // const { vectordLayer } = useSelector((state) => state.menu);
     const { drawFeature } = useSelector((state) => state.menu);
-    const { map } = props;
-
-    const typeSelect = document.getElementById('type');
-    const showSegments = document.getElementById('segments');
-    //const clearPrevious = document.getElementById('clear');
+    const { map } = useContext(MapContext);
+    const flist = [];
 
     const modifyStyle = new Style({
         image: new CircleStyle({
@@ -60,12 +58,32 @@ const Mapdrawer = (props) => {
         source: source,
         style: function (feature) {
             return StyleFunction(feature);
-            // return StyleFunction(feature, showSegments.checked);
         }
     });
 
-    map.addLayer(vector);
-    map.addInteraction(modify);
+    useEffect(() => {
+        if (map !== undefined) {
+            console.log('3333');
+            map.addLayer(vector);
+            map.addInteraction(modify);
+            map.on('dblclick', function () {
+                console.log(flist);
+                console.log(map.getAllLayers());
+            });
+        }
+    }, [map]);
+
+    // useEffect(() => {
+
+    // }, [modify, vector]);
+
+    // map.addLayer(vector);
+    // map.addInteraction(modify);
+    // map.on('dblclick', function () {
+    //     console.log(flist);
+    //     console.log(map.getAllLayers());
+    //     // getAllFeatures();
+    // });
 
     const select = new Select();
 
@@ -95,19 +113,20 @@ const Mapdrawer = (props) => {
                 }
             });
             draw.on('drawstart', function () {
-                // if (clearPrevious.checked) {
-                //     source.clear();
-                // }
                 modify.setActive(false);
                 tip = activeTip;
             });
-            draw.on('drawend', function () {
+            draw.on('drawend', function (e) {
+                var feature = e.feature;
                 modifyStyle.setGeometry(getTipPoint);
                 modify.setActive(true);
                 map.once('pointermove', function () {
                     modifyStyle.setGeometry();
                 });
                 tip = idleTip;
+                setTimeout(function () {
+                    getAllFeatures(feature);
+                }, 0);
             });
             modify.setActive(true);
             map.addInteraction(draw);
@@ -115,93 +134,92 @@ const Mapdrawer = (props) => {
         }
     }
 
-    // typeSelect.onchange = function () {
-    //     map.removeInteraction(draw);
-    //     addInteraction();
-    // };
-
-    // showSegments.onchange = function () {
-    //     vector.changed();
-    //     draw.getOverlay().changed();
-    // };
-
     function addSelect() {
         addInteraction('None');
         map.addInteraction(select);
         map.addInteraction(translate);
     }
 
+    function getAllFeatures(feature) {
+        const arr = [];
+        flist.push(feature);
+        map.getLayers().forEach((layer) => {
+            if (layer instanceof VectorLayer) {
+                const features = layer.getSource().getFeatures();
+                arr.push(...features);
+            }
+        });
+        dispatch(addFeatureStack({ featurestack: arr }));
+        console.log(flist);
+        console.log(arr);
+    }
+
     return (
-        <div className="row" style={{ position: 'fixed', zIndex: '1100', padding: '10px' }}>
-            <div className="col-auto">
-                <Box sx={{ display: 'flex' }}>
-                    <Button
-                        onClick={() => addvctLayer()}
-                        component="label"
-                        sx={{ mr: 0.75 }}
-                        variant="contained"
-                        color="error"
-                        startIcon={<LayersIcon />}
-                    >
-                        레이어 생성
-                    </Button>
-                    <Button
-                        onClick={() => addInteraction('Point')}
-                        component="label"
-                        sx={{ mr: 0.75 }}
-                        variant="contained"
-                        startIcon={<RadioButtonCheckedIcon />}
-                    >
-                        포인트
-                    </Button>
-                    <Button
-                        onClick={() => addInteraction('LineString')}
-                        component="label"
-                        sx={{ mr: 0.75 }}
-                        variant="contained"
-                        startIcon={<ModeEditOutlineIcon />}
-                    >
-                        줄
-                    </Button>
-                    <Button
-                        onClick={() => addInteraction('Polygon')}
-                        component="label"
-                        sx={{ mr: 0.75 }}
-                        variant="contained"
-                        startIcon={<CropSquareIcon />}
-                    >
-                        폴리곤
-                    </Button>
-                    <Button
-                        onClick={() => addInteraction('Circle')}
-                        component="label"
-                        sx={{ mr: 0.75 }}
-                        variant="contained"
-                        startIcon={<CircleOutlinedIcon />}
-                    >
-                        원형
-                    </Button>
-                    <Button
-                        onClick={() => addSelect()}
-                        component="label"
-                        sx={{ mr: 0.75 }}
-                        variant="contained"
-                        startIcon={<FilterNoneIcon />}
-                    >
-                        객체 옮기기
-                    </Button>
-                    <Button
-                        onClick={() => addInteraction('None')}
-                        component="label"
-                        sx={{ mr: 0.75 }}
-                        variant="contained"
-                        startIcon={<FilterNoneIcon />}
-                    >
-                        마우스
-                    </Button>
-                </Box>
-            </div>
-        </div>
+        <>
+            {drawFeature && (
+                <div className="row" style={{ position: 'fixed', zIndex: '1100', padding: '10px' }}>
+                    <div className="col-auto">
+                        <Box sx={{ display: 'flex' }}>
+                            <Button
+                                onClick={() => addInteraction('Point')}
+                                component="label"
+                                sx={{ mr: 0.75 }}
+                                variant="contained"
+                                startIcon={<RadioButtonCheckedIcon />}
+                            >
+                                포인트
+                            </Button>
+                            <Button
+                                onClick={() => addInteraction('LineString')}
+                                component="label"
+                                sx={{ mr: 0.75 }}
+                                variant="contained"
+                                startIcon={<ModeEditOutlineIcon />}
+                            >
+                                줄
+                            </Button>
+                            <Button
+                                onClick={() => addInteraction('Polygon')}
+                                component="label"
+                                sx={{ mr: 0.75 }}
+                                variant="contained"
+                                startIcon={<CropSquareIcon />}
+                            >
+                                폴리곤
+                            </Button>
+                            <Button
+                                onClick={() => addInteraction('Circle')}
+                                component="label"
+                                sx={{ mr: 0.75 }}
+                                variant="contained"
+                                startIcon={<CircleOutlinedIcon />}
+                            >
+                                원형
+                            </Button>
+                            <Button
+                                onClick={addSelect} // Use direct function reference if no additional arguments are passed
+                                component="label"
+                                sx={{ mr: 0.75 }}
+                                variant="contained"
+                                startIcon={<FilterNoneIcon />}
+                            >
+                                객체 옮기기
+                            </Button>
+                            <Button
+                                onClick={() => addInteraction('None')}
+                                component="label"
+                                sx={{ mr: 0.75 }}
+                                variant="contained"
+                                startIcon={<FilterNoneIcon />}
+                            >
+                                마우스
+                            </Button>
+                        </Box>
+                    </div>
+                </div>
+            )}
+        </>
     );
 };
+
 export default Mapdrawer;

@@ -16,12 +16,15 @@ import MapPopupTable from './mapfunction/MapPopupTable';
 
 import './mapfunction/static/olpopup.css';
 
+import { filterVectorList } from 'store/reducers/menu';
+
 const BaseMapUI = () => {
+    const dispatch = useDispatch();
     const { map } = useContext(MapContext);
-    const { drawFeature, switchFeature } = useSelector((state) => state.menu);
+    const { switchFeature, getvectors } = useSelector((state) => state.menu);
+    const [vectorlist, setvertorList] = useState([]);
 
     function removeOverlayById(overlayId) {
-        console.log(overlayId);
         const overlays = map.getOverlays().getArray();
         const overlayToRemove = overlays.find((overlay) => overlay.ol_uid === overlayId);
         if (overlayToRemove) {
@@ -35,8 +38,8 @@ const BaseMapUI = () => {
     useEffect(() => {
         if (map !== undefined) {
             MapUploadData(map);
-
-            var insertoverlay = {};
+            var maplist = map.getAllLayers();
+            setvertorList(maplist);
             var overlaylist = [];
             // 우클릭 시 실행
             map.on('contextmenu', function (evt) {
@@ -47,6 +50,7 @@ const BaseMapUI = () => {
 
                 map.forEachFeatureAtPixel(evt.pixel, function (f) {
                     selected = f;
+                    console.log(selected);
                 });
                 if (selected !== null) {
                     var selectedExtent = selected.getGeometry().getExtent();
@@ -63,20 +67,26 @@ const BaseMapUI = () => {
                             }
                         }
                     });
-                    console.log(overlaylist);
                 } else {
                     MapPopup(map, coordinate, hdms);
                 }
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [map]);
+
+    useEffect(() => {
+        console.log(vectorlist);
+        dispatch(filterVectorList({ getvectors: vectorlist }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [vectorlist]);
 
     // const drawsource = new VectorSource({ wrapX: false });
 
     return (
         <Grid container>
             {switchFeature && <MapSwitch map={map} />}
-            {drawFeature && <Mapdrawer map={map} />}
+            <Mapdrawer />
             <div id="map" style={{ width: '100%', height: '61rem' }}></div>
         </Grid>
     );

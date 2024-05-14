@@ -38,8 +38,6 @@ const BaseMap = ({ children }) => {
 
     const { featureLayer } = useSelector((state) => state.layerRedycer);
 
-    const drawsource = new VectorSource({ wrapX: false });
-
     useEffect(() => {
         dispatch(activeDrawf({ drawFeature: false }));
         // dispatch(setFeatureLayer());
