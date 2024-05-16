@@ -23,7 +23,11 @@ const Mapdrawer = () => {
     const dispatch = useDispatch();
     const { drawFeature } = useSelector((state) => state.menu);
     const { map } = useContext(MapContext);
+    const [source, setSource] = useState();
+    const [modify, setModify] = useState();
+    const [vector, setVector] = useState();
     const flist = [];
+    const [poList, setPoList] = useState([]);
 
     const modifyStyle = new Style({
         image: new CircleStyle({
@@ -50,40 +54,40 @@ const Mapdrawer = () => {
         })
     });
 
-    const source = new VectorSource();
-
-    const modify = new Modify({ source: source, style: modifyStyle });
-
-    const vector = new VectorLayer({
-        source: source,
-        style: function (feature) {
-            return StyleFunction(feature);
-        }
-    });
-
     useEffect(() => {
         if (map !== undefined) {
-            console.log('3333');
-            map.addLayer(vector);
-            map.addInteraction(modify);
-            map.on('dblclick', function () {
-                console.log(flist);
-                console.log(map.getAllLayers());
-            });
+            const sets = new VectorSource();
+            setSource(sets);
         }
     }, [map]);
 
-    // useEffect(() => {
+    useEffect(() => {
+        if (map !== undefined) {
+            const setm = new Modify({ source: source, style: modifyStyle });
+            setModify(setm);
+            const setv = new VectorLayer({
+                source: source,
+                style: function (feature) {
+                    return StyleFunction(feature);
+                }
+            });
+            setVector(setv);
+        }
+    }, [source]);
 
-    // }, [modify, vector]);
-
-    // map.addLayer(vector);
-    // map.addInteraction(modify);
-    // map.on('dblclick', function () {
-    //     console.log(flist);
-    //     console.log(map.getAllLayers());
-    //     // getAllFeatures();
-    // });
+    useEffect(() => {
+        if (map !== undefined) {
+            if (vector !== undefined && modify !== undefined) {
+                map.addLayer(vector);
+                map.addInteraction(modify);
+                map.on('dblclick', function () {
+                    console.log(flist);
+                    console.log(map.getAllLayers());
+                    console.log(poList);
+                });
+            }
+        }
+    }, [modify, vector]);
 
     const select = new Select();
 
@@ -143,6 +147,7 @@ const Mapdrawer = () => {
     function getAllFeatures(feature) {
         const arr = [];
         flist.push(feature);
+        // setPoList((arr) => [...arr, poList]);
         map.getLayers().forEach((layer) => {
             if (layer instanceof VectorLayer) {
                 const features = layer.getSource().getFeatures();
@@ -150,8 +155,6 @@ const Mapdrawer = () => {
             }
         });
         dispatch(addFeatureStack({ featurestack: arr }));
-        console.log(flist);
-        console.log(arr);
     }
 
     return (
