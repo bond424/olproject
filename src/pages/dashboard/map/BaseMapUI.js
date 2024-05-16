@@ -84,7 +84,12 @@ const BaseMapUI = () => {
     // const drawsource = new VectorSource({ wrapX: false });
 
     return (
-        <Grid container>
+        <Grid
+            container
+            sx={{
+                position: 'relative'
+            }}
+        >
             {switchFeature && <MapSwitch map={map} />}
             <Mapdrawer />
             <div id="map" style={{ width: '100%', height: '61rem' }}></div>

@@ -157,60 +157,264 @@ const Mapdrawer = () => {
     return (
         <>
             {drawFeature && (
-                <div className="row" style={{ position: 'fixed', zIndex: '1100', padding: '10px' }}>
+                <div
+                    className="row"
+                    style={{
+                        position: 'absolute',
+                        zIndex: '1100',
+                        right: '20px',
+                        top: '140px'
+                    }}
+                >
                     <div className="col-auto">
-                        <Box sx={{ display: 'flex' }}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                backgroundColor: '#ffffff',
+                                borderRadius: '10px',
+                                border: '1px solid #0000003b',
+                                width: '54px'
+                            }}
+                        >
                             <Button
                                 onClick={() => addInteraction('Point')}
                                 component="label"
-                                sx={{ mr: 0.75 }}
+                                sx={{
+                                    mr: 0.75,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justify_content: 'center',
+                                    text_align: 'center',
+                                    '& .MuiButton-startIcon': {
+                                        marginRight: '0px',
+                                        marginLeft: '0px'
+                                    },
+                                    borderRadius: 0,
+                                    backgroundColor: 'transparent',
+                                    marginRight: '0px',
+                                    borderBottomColor: '#0000003b',
+                                    borderBottomStyle: 'solid',
+                                    borderBottomWidth: '1px',
+                                    color: '#33343B',
+                                    fontSize: '68%',
+                                    height: '52px',
+                                    width: '52px',
+                                    padding: '0px',
+                                    minWidth: '52px'
+                                }}
                                 variant="contained"
-                                startIcon={<RadioButtonCheckedIcon />}
+                                startIcon={
+                                    <RadioButtonCheckedIcon
+                                        sx={{
+                                            marginBottom: '3px',
+                                            marginTop: '8px',
+                                            width: '24px',
+                                            height: '24px'
+                                        }}
+                                    />
+                                }
                             >
                                 포인트
                             </Button>
                             <Button
                                 onClick={() => addInteraction('LineString')}
                                 component="label"
-                                sx={{ mr: 0.75 }}
+                                sx={{
+                                    mr: 0.75,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justify_content: 'center',
+                                    text_align: 'center',
+                                    '& .MuiButton-startIcon': {
+                                        marginRight: '0px',
+                                        marginLeft: '0px'
+                                    },
+                                    borderRadius: 0,
+                                    backgroundColor: 'transparent',
+                                    marginRight: '0px',
+                                    borderbottom: '1',
+                                    borderBottomColor: '#0000003b',
+                                    borderBottomStyle: 'solid',
+                                    borderBottomWidth: '1px',
+                                    color: '#33343B',
+                                    fontSize: '68%',
+                                    height: '52px',
+                                    width: '52px',
+                                    padding: '0px',
+                                    minWidth: '52px'
+                                }}
                                 variant="contained"
-                                startIcon={<ModeEditOutlineIcon />}
+                                startIcon={
+                                    <ModeEditOutlineIcon
+                                        sx={{
+                                            marginBottom: '3px',
+                                            marginTop: '8px',
+                                            width: '24px',
+                                            height: '24px'
+                                        }}
+                                    />
+                                }
                             >
                                 줄
                             </Button>
                             <Button
                                 onClick={() => addInteraction('Polygon')}
                                 component="label"
-                                sx={{ mr: 0.75 }}
+                                sx={{
+                                    mr: 0.75,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justify_content: 'center',
+                                    text_align: 'center',
+                                    '& .MuiButton-startIcon': {
+                                        marginRight: '0px',
+                                        marginLeft: '0px'
+                                    },
+                                    borderRadius: 0,
+                                    backgroundColor: 'transparent',
+                                    marginRight: '0px',
+                                    borderbottom: '1',
+                                    borderBottomColor: '#0000003b',
+                                    borderBottomStyle: 'solid',
+                                    borderBottomWidth: '1px',
+                                    color: '#33343B',
+                                    fontSize: '68%',
+                                    height: '52px',
+                                    width: '52px',
+                                    padding: '0px',
+                                    minWidth: '52px'
+                                }}
                                 variant="contained"
-                                startIcon={<CropSquareIcon />}
+                                startIcon={
+                                    <CropSquareIcon
+                                        sx={{
+                                            marginBottom: '3px',
+                                            marginTop: '8px',
+                                            width: '24px',
+                                            height: '24px'
+                                        }}
+                                    />
+                                }
                             >
                                 폴리곤
                             </Button>
                             <Button
                                 onClick={() => addInteraction('Circle')}
                                 component="label"
-                                sx={{ mr: 0.75 }}
+                                sx={{
+                                    mr: 0.75,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justify_content: 'center',
+                                    text_align: 'center',
+                                    '& .MuiButton-startIcon': {
+                                        marginRight: '0px',
+                                        marginLeft: '0px'
+                                    },
+                                    borderRadius: 0,
+                                    backgroundColor: 'transparent',
+                                    marginRight: '0px',
+                                    borderbottom: '1',
+                                    borderBottomColor: '#0000003b',
+                                    borderBottomStyle: 'solid',
+                                    borderBottomWidth: '1px',
+                                    color: '#33343B',
+                                    fontSize: '68%',
+                                    height: '52px',
+                                    width: '52px',
+                                    padding: '0px',
+                                    minWidth: '52px'
+                                }}
                                 variant="contained"
-                                startIcon={<CircleOutlinedIcon />}
+                                startIcon={
+                                    <CircleOutlinedIcon
+                                        sx={{
+                                            marginBottom: '3px',
+                                            marginTop: '8px',
+                                            width: '24px',
+                                            height: '24px'
+                                        }}
+                                    />
+                                }
                             >
                                 원형
                             </Button>
                             <Button
                                 onClick={addSelect} // Use direct function reference if no additional arguments are passed
                                 component="label"
-                                sx={{ mr: 0.75 }}
+                                sx={{
+                                    mr: 0.75,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justify_content: 'center',
+                                    text_align: 'center',
+                                    '& .MuiButton-startIcon': {
+                                        marginRight: '0px',
+                                        marginLeft: '0px'
+                                    },
+                                    borderRadius: 0,
+                                    backgroundColor: 'transparent',
+                                    marginRight: '0px',
+                                    borderbottom: '1',
+                                    borderBottomColor: '#0000003b',
+                                    borderBottomStyle: 'solid',
+                                    borderBottomWidth: '1px',
+                                    color: '#33343B',
+                                    fontSize: '68%',
+                                    height: '52px',
+                                    width: '52px',
+                                    padding: '0px',
+                                    minWidth: '52px'
+                                }}
                                 variant="contained"
-                                startIcon={<FilterNoneIcon />}
+                                startIcon={
+                                    <FilterNoneIcon
+                                        sx={{
+                                            marginBottom: '3px',
+                                            marginTop: '8px',
+                                            width: '24px',
+                                            height: '24px'
+                                        }}
+                                    />
+                                }
                             >
-                                객체 옮기기
+                                객체옮기기
                             </Button>
                             <Button
                                 onClick={() => addInteraction('None')}
                                 component="label"
-                                sx={{ mr: 0.75 }}
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justify_content: 'center',
+                                    text_align: 'center',
+                                    '& .MuiButton-startIcon': {
+                                        marginRight: '0px',
+                                        marginLeft: '0px'
+                                    },
+                                    borderRadius: 0,
+                                    backgroundColor: 'transparent',
+                                    marginRight: '0px',
+                                    borderbottom: '1',
+                                    color: '#33343B',
+                                    fontSize: '68%',
+                                    height: '52px',
+                                    width: '52px',
+                                    padding: '0px',
+                                    minWidth: '52px'
+                                }}
                                 variant="contained"
-                                startIcon={<FilterNoneIcon />}
+                                startIcon={
+                                    <FilterNoneIcon
+                                        sx={{
+                                            marginBottom: '3px',
+                                            marginTop: '8px',
+                                            width: '24px',
+                                            height: '24px'
+                                        }}
+                                    />
+                                }
                             >
                                 마우스
                             </Button>

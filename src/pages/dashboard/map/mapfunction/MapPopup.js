@@ -21,7 +21,7 @@ function MapPopup(map, coordinate, hdms) {
             duration: 400
         }
     });
-
+    // 객체 밖 팝업
     overlay.setPosition(coordinate);
     map.addOverlay(overlay);
 

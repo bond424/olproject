@@ -52,25 +52,103 @@ const MapSwitch = (props) => {
     };
 
     return (
-        <div class="row" style={{ position: 'fixed', zIndex: '1000', padding: '10px' }}>
-            <div class="col-auto">
-                <Box>
+        <div
+            className="row"
+            style={{
+                position: 'absolute',
+                zIndex: '1000',
+                right: '20px',
+                top: '20px'
+            }}
+        >
+            <div className="col-auto">
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        backgroundColor: '#ffffff',
+                        borderRadius: '10px',
+                        border: '1px solid #0000003b',
+                        width: '54px'
+                    }}
+                >
                     <Button
                         onClick={() => handleStyleChange('mainlayer')}
                         component="label"
-                        sx={{ mr: 0.75 }}
+                        sx={{
+                            mr: 0.75,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justify_content: 'center',
+                            text_align: 'center',
+                            '& .MuiButton-startIcon': {
+                                marginRight: '0px',
+                                marginLeft: '0px'
+                            },
+                            borderRadius: 0,
+                            backgroundColor: 'transparent',
+                            marginRight: '0px',
+                            borderbottom: '1',
+                            borderBottomColor: '#0000003b',
+                            borderBottomStyle: 'solid',
+                            borderBottomWidth: '1px',
+                            color: '#33343B',
+                            fontSize: '68%',
+                            height: '52px',
+                            width: '52px',
+                            padding: '0px',
+                            minWidth: '52px'
+                        }}
                         variant="contained"
-                        startIcon={<RadioButtonCheckedIcon />}
+                        startIcon={
+                            <RadioButtonCheckedIcon
+                                sx={{
+                                    marginBottom: '3px',
+                                    marginTop: '8px',
+                                    width: '24px',
+                                    height: '24px'
+                                }}
+                            />
+                        }
                     >
                         원본
                     </Button>
                     <Button
                         onClick={() => handleStyleChange('setSlayer')}
                         component="label"
-                        sx={{ mr: 0.75 }}
+                        sx={{
+                            mr: 0.75,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            '& .MuiButton-startIcon': {
+                                marginRight: '0px',
+                                marginLeft: '0px'
+                            },
+                            backgroundColor: 'transparent',
+                            marginRight: '0px',
+                            borderRadius: 0,
+                            backgroundColor: 'transparent',
+                            marginRight: '0px',
+                            color: '#33343B',
+                            fontSize: '68%',
+                            height: '52px',
+                            width: '52px',
+                            padding: '0px',
+                            minWidth: '52px'
+                        }}
                         variant="contained"
-                        startIcon={<ModeEditOutlineIcon />}
+                        startIcon={
+                            <ModeEditOutlineIcon
+                                sx={{
+                                    marginBottom: '3px',
+                                    marginTop: '8px',
+                                    width: '24px',
+                                    height: '24px'
+                                }}
+                            />
+                        }
                     >
+                        {/* 임의의 아이콘으로 바꾸기 */}
                         위성
                     </Button>
                 </Box>
