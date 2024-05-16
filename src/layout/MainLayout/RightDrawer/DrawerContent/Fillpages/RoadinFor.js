@@ -23,8 +23,6 @@ import 'dayjs/locale/ko';
 import PropTypes from 'prop-types';
 
 function RoadinFor() {
-    const [age, setAge] = useState('');
-    console.log('2');
     const { featurestack } = useSelector((state) => state.layerRedycer);
 
     useEffect(() => {

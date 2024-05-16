@@ -28,7 +28,6 @@ register(proj4);
 const BaseMap = ({ children }) => {
     const dispatch = useDispatch();
     const [mapObject, setMapObject] = useState({});
-    const { drawFeature, switchFeature } = useSelector((state) => state.menu);
     // const drawsource = new VectorSource({ wrapX: false });
     const { getLayerUrl } = useSelector((state) => state.menu);
     // const [tileLayerUrl, setTileLayerUrl] = useState();
