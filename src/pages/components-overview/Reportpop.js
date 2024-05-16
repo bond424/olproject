@@ -8,7 +8,7 @@ import './reportpop.css';
 const Reportpop = () => {
     return (
         <Container sx={{ width: '100%', height: '100%', bgcolor: '#fff' }}>
-            <Box fullWidth sx={{ height: '100px' }}>
+            <Box sx={{ width: '100%', height: '100px' }}>
                 <table className="reportpopup" style={{ width: '100%', padding: '9.5px' }}>
                     <caption>품의서</caption>
                     <tbody>

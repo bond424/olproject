@@ -30,7 +30,7 @@ function RoadinFor() {
     }, [featurestack]);
 
     return (
-        <Box fullWidth sx={{ width: '100%', height: 1080, display: 'flex', pl: 1, pr: 1 }}>
+        <Box sx={{ width: '100%', height: 1080, display: 'flex', pl: 1, pr: 1 }}>
             <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                 {featurestack.map((feature, index) => (
                     <ListItem key={index}>

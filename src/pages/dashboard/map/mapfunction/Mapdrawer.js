@@ -147,7 +147,8 @@ const Mapdrawer = () => {
     function getAllFeatures(feature) {
         const arr = [];
         flist.push(feature);
-        // setPoList((arr) => [...arr, poList]);
+        // setPoList([poList]);
+        // console.log(poList);
         map.getLayers().forEach((layer) => {
             if (layer instanceof VectorLayer) {
                 const features = layer.getSource().getFeatures();

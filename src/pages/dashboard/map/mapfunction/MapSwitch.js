@@ -52,8 +52,8 @@ const MapSwitch = (props) => {
     };
 
     return (
-        <div class="row" style={{ position: 'fixed', zIndex: '1000', padding: '10px' }}>
-            <div class="col-auto">
+        <div className="row" style={{ position: 'fixed', zIndex: '1000', padding: '10px' }}>
+            <div className="col-auto">
                 <Box>
                     <Button
                         onClick={() => handleStyleChange('mainlayer')}

@@ -45,7 +45,7 @@ function ReportFor() {
 
     return (
         <Container maxWidth="sm" sx={{ height: '100%' }}>
-            <Box fullWidth sx={{ height: '100px', bgcolor: '#f2f5f3' }}>
+            <Box sx={{ width: '100%', height: '100px', bgcolor: '#f2f5f3' }}>
                 <div style={{ width: '100%', display: 'flex' }}>
                     <Typography sx={{ p: '9.5px', mt: '5px' }}>구분</Typography>
                     <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
@@ -83,8 +83,8 @@ function ReportFor() {
                     </FormControl>
                 </div>
                 <Box
-                    fullWidth
                     sx={{
+                        width: '100%',
                         display: 'flex',
                         flexWrap: 'wrap',
                         justifyContent: 'center',
@@ -97,8 +97,8 @@ function ReportFor() {
                 </Box>
             </Box>
             <Box
-                fullWidth
                 sx={{
+                    width: '100%',
                     display: 'flex',
                     flexWrap: 'wrap',
                     justifyContent: 'center',
@@ -108,18 +108,18 @@ function ReportFor() {
                     mt: 1
                 }}
             >
-                <Box sx={{ display: 'flex' }}>
+                <FormControl sx={{ display: 'flex' }}>
                     <Typography sx={{ p: '9.5px' }}>한글파일 업로드</Typography>
-                    <Button component="label" role={undefined} variant="contained" tabIndex={-1} startIcon={<CloudUploadIcon />}>
-                        Upload file
-                        <VisuallyHiddenInput type="file" />
-                    </Button>
-                </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Button component="label" role={undefined} variant="contained" tabIndex={-1} startIcon={<CloudUploadIcon />}>
+                            Upload file
+                            <VisuallyHiddenInput type="file" />
+                        </Button>
+                    </Box>
+                </FormControl>
             </Box>
-            <Box fullWidth sx={{ height: '200px', bgcolor: '#d9dbdb', mt: 1 }}>
-                {/* <ReportTable /> */}
-            </Box>
-            <Box fullWidth sx={{ height: '100px', bgcolor: '#f2f5f3', mt: 1 }}>
+            <Box sx={{ width: '100%', height: '200px', bgcolor: '#d9dbdb', mt: 1 }}></Box>
+            <Box sx={{ width: '100%', height: '100px', bgcolor: '#f2f5f3', mt: 1 }}>
                 <div style={{ width: '100%', display: 'flex' }}>
                     <Typography sx={{ p: '9.5px' }}>예약발송여부</Typography>
                     <FormControl>
