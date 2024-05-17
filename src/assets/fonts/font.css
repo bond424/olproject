@@ -1,0 +1,5 @@
+@font-face {
+    font-family: 'NotoSansKR';
+    src: local('NotoSansKR'), url('./NotoSansKR-Regular.woff') format('woff2');
+    font-display: swap;
+}

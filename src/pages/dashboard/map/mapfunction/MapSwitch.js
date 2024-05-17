@@ -5,8 +5,9 @@ import XYZ from 'ol/source/XYZ.js';
 import { Grid, Box, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { chageMap } from 'store/reducers/menu';
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+//아이콘들
+import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
+import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 
 const MapSwitch = (props) => {
     const dispatch = useDispatch();
@@ -67,9 +68,9 @@ const MapSwitch = (props) => {
                         display: 'flex',
                         flexDirection: 'column',
                         backgroundColor: '#ffffff',
-                        borderRadius: '10px',
-                        border: '1px solid #0000003b',
-                        width: '54px'
+                        borderRadius: '5px',
+                        border: '1px solid #00000020',
+                        width: '50px'
                     }}
                 >
                     <Button
@@ -89,24 +90,35 @@ const MapSwitch = (props) => {
                             backgroundColor: 'transparent',
                             marginRight: '0px',
                             borderbottom: '1',
-                            borderBottomColor: '#0000003b',
+                            borderBottomColor: '#00000020',
                             borderBottomStyle: 'solid',
                             borderBottomWidth: '1px',
-                            color: '#33343B',
-                            fontSize: '68%',
-                            height: '52px',
-                            width: '52px',
+                            color: '#434347',
+                            fontSize: '75%',
+                            height: '48px',
+                            width: '48px',
                             padding: '0px',
-                            minWidth: '52px'
+                            minWidth: '48px',
+                            fontFamily: 'NotoSansKR',
+                            fontWeight: '800',
+                            ':hover': {
+                                backgroundColor: 'transparent',
+                                color: '#6995D5',
+                                '& .MuiSvgIcon-root': {
+                                    color: '#6995D5'
+                                }
+                            }
                         }}
                         variant="contained"
                         startIcon={
-                            <RadioButtonCheckedIcon
+                            <CameraAltOutlinedIcon
                                 sx={{
-                                    marginBottom: '3px',
-                                    marginTop: '8px',
+                                    marginBottom: '0px',
+                                    marginTop: '6px',
                                     width: '24px',
-                                    height: '24px'
+                                    height: '24px',
+                                    color: '#72737B',
+                                    transition: 'color 0.2s'
                                 }}
                             />
                         }
@@ -129,21 +141,32 @@ const MapSwitch = (props) => {
                             borderRadius: 0,
                             backgroundColor: 'transparent',
                             marginRight: '0px',
-                            color: '#33343B',
-                            fontSize: '68%',
-                            height: '52px',
-                            width: '52px',
+                            color: '#434347',
+                            fontSize: '75%',
+                            height: '48px',
+                            width: '48px',
                             padding: '0px',
-                            minWidth: '52px'
+                            minWidth: '48px',
+                            fontFamily: 'NotoSansKR',
+                            fontWeight: '800',
+                            ':hover': {
+                                backgroundColor: 'transparent',
+                                color: '#6995D5',
+                                '& .MuiSvgIcon-root': {
+                                    color: '#6995D5'
+                                }
+                            }
                         }}
                         variant="contained"
                         startIcon={
-                            <ModeEditOutlineIcon
+                            <TrackChangesIcon
                                 sx={{
-                                    marginBottom: '3px',
-                                    marginTop: '8px',
+                                    marginBottom: '0px',
+                                    marginTop: '6px',
                                     width: '24px',
-                                    height: '24px'
+                                    height: '24px',
+                                    color: '#72737B',
+                                    transition: 'color 0.2s'
                                 }}
                             />
                         }
