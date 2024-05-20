@@ -81,9 +81,7 @@ const Mapdrawer = () => {
                 map.addLayer(vector);
                 map.addInteraction(modify);
                 map.on('dblclick', function () {
-                    console.log(flist);
                     console.log(map.getAllLayers());
-                    console.log(poList);
                 });
             }
         }

@@ -14,6 +14,7 @@ function MapUploadData(map) {
     map.addInteraction(dragAndDropInteraction);
 
     dragAndDropInteraction.on('addfeatures', function (event) {
+        console.log(event);
         const vectorSource = new VectorSource({
             features: event.features
         });
