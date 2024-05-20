@@ -86,7 +86,7 @@
     color:#5F6263;
 }
 .popTable>tr>td{
-    border-bottom: 1px solid #0000003b;
+    border-bottom: 1px solid #00000020;
 }
 .popTable>tr:first-child>td{
     border-bottom: none;
