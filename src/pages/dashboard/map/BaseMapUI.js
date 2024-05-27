@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid } from '@mui/material';
-import { OSM, Vector as VectorSource } from 'ol/source.js';
 import { toStringHDMS } from 'ol/coordinate';
 import { toLonLat } from 'ol/proj.js';
-import { Vector as VectorLayer } from 'ol/layer';
 import { containsExtent, containsXY, containsCoordinate } from 'ol/extent';
 
 import MapContext from './MapContext';

@@ -101,7 +101,7 @@ function DrawerContent() {
                     className={classes.tabs}
                 >
                     <Tab label="보고서 작성" className={classes.tabLabel} {...a11yProps(0)} />
-                    <Tab label="레이어 목록" className={classes.tabLabel} {...a11yProps(1)} />
+                    <Tab label="객체 목록" className={classes.tabLabel} {...a11yProps(1)} />
                     <Tab label="농경지 가져오기" className={classes.tabLabel} {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
