@@ -537,7 +537,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.0"
 
-"@babel/plugin-syntax-jsx@^7.16.7", "@babel/plugin-syntax-jsx@^7.17.12":
+"@babel/plugin-syntax-jsx@^7.16.7":
   version "7.18.6"
   resolved "https://registry.npmjs.org/@babel/plugin-syntax-jsx/-/plugin-syntax-jsx-7.18.6.tgz"
   integrity sha512-6mmljtAedFGTWu2p/8WIORGwy+61PLgOMPOdazc7YoJ9ZCWUyFy3A6CpPkRKLKD1ToAesxX8KGEViAiLo9N+7Q==
@@ -1060,13 +1060,6 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.22.6":
-  version "7.24.6"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.6.tgz#5b76eb89ad45e2e4a0a8db54c456251469a3358e"
-  integrity sha512-Ja18XcETdEl5mzzACGd+DKgaGJzPTCow7EglgwTmHdwokzDFYh/MHua6lU6DV/hjF2IaOJ4oX2nqnjG7RElKOw==
-  dependencies:
-    regenerator-runtime "^0.14.0"
-
 "@babel/runtime@^7.23.2", "@babel/runtime@^7.23.9":
   version "7.24.4"
   resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.24.4.tgz"
@@ -1319,7 +1312,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.8.1.tgz#c1ddb040429c6d21d38cc945fe75c818cfb68e17"
   integrity sha512-W2P2c/VRW1/1tLox0mVUalvnWXxavmv/Oum2aPsRcoDJuob75FC3Y8FbpfLwUegRcxINtGUMPq0tFCvYNTBXNA==
 
-"@emotion/react@^11.11.4":
+"@emotion/react@^11.10.4":
   version "11.11.4"
   resolved "https://registry.yarnpkg.com/@emotion/react/-/react-11.11.4.tgz#3a829cac25c1f00e126408fab7f891f00ecc3c1d"
   integrity sha512-t8AjMlF0gHpvvxk5mAtCqR4vmxiGHCeJBaQO6gncUSdklELOgtwjerNY2yuJNfwnc6vi16U/+uMF+afIawJ9iw==
@@ -1354,7 +1347,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/sheet/-/sheet-1.2.2.tgz#d58e788ee27267a14342303e1abb3d508b6d0fec"
   integrity sha512-0QBtGvaqtWi+nx6doRwDdBIzhNdZrXUppvTM4dtZZWEGTXL/XE/yJxLMGlDT1Gt+UHH5IX1n+jkXyytE/av7OA==
 
-"@emotion/styled@^11.11.5":
+"@emotion/styled@^11.10.4":
   version "11.11.5"
   resolved "https://registry.yarnpkg.com/@emotion/styled/-/styled-11.11.5.tgz#0c5c8febef9d86e8a926e663b2e5488705545dfb"
   integrity sha512-/ZjjnaNKvuMPxcIiUkf/9SHoG4Q196DRl1w82hQ3WCsjo1IUR8uaGWrC6a87CrYAW0Kb/pK7hk8BnLgLRi9KoQ==
@@ -1851,7 +1844,7 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-"@mui/material@^5.15.18":
+"@mui/material@^5.10.6":
   version "5.15.18"
   resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.15.18.tgz#1184e88cebb5c58625ca799531c0611c1fd9a2a8"
   integrity sha512-n+/dsiqux74fFfcRUJjok+ieNQ7+BEk6/OwX9cLcLvriZrZb+/7Y8+Fd2HlUUbn5N0CDurgAHm0VH1DqyJ9HAw==
@@ -1963,7 +1956,7 @@
   resolved "https://registry.npmjs.org/@mui/types/-/types-7.2.14.tgz"
   integrity sha512-MZsBZ4q4HfzBsywtXgM1Ksj6HDThtiwmOKUXH1pKYISI9gAVXCNHNpo7TlGoGrBaYWZTdNoirIN7JsQcQUjmQQ==
 
-"@mui/utils@^5.10.6", "@mui/utils@^5.13.7", "@mui/utils@^5.14.14", "@mui/utils@^5.14.16", "@mui/utils@^5.15.14":
+"@mui/utils@^5.10.6", "@mui/utils@^5.14.14", "@mui/utils@^5.14.16", "@mui/utils@^5.15.14":
   version "5.15.14"
   resolved "https://registry.npmjs.org/@mui/utils/-/utils-5.15.14.tgz"
   integrity sha512-0lF/7Hh/ezDv5X7Pry6enMsbYyGKjADzvHyo3Qrc/SSlTsQ1VkbDMbH0m2t3OR5iIVLwMoxwM7yGd+6FCMtTFA==
@@ -1973,21 +1966,7 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-"@mui/x-data-grid-pro@^6.20.0":
-  version "6.20.0"
-  resolved "https://registry.yarnpkg.com/@mui/x-data-grid-pro/-/x-data-grid-pro-6.20.0.tgz#3111df8cbce97d9d0ec916edcc0da82274379266"
-  integrity sha512-4pXvrTXy+WXSMvpEApA+nK31A14e62OXd7+uAmcBn/sY/l59N22Oc5p3+vYEa4H+HamC3vfdEJQ6vWUwI49XDw==
-  dependencies:
-    "@babel/runtime" "^7.23.2"
-    "@mui/utils" "^5.14.16"
-    "@mui/x-data-grid" "6.20.0"
-    "@mui/x-license-pro" "6.10.2"
-    "@types/format-util" "^1.0.3"
-    clsx "^2.0.0"
-    prop-types "^15.8.1"
-    reselect "^4.1.8"
-
-"@mui/x-data-grid@6.20.0", "@mui/x-data-grid@^6.20.0":
+"@mui/x-data-grid@^6.19.5":
   version "6.20.0"
   resolved "https://registry.yarnpkg.com/@mui/x-data-grid/-/x-data-grid-6.20.0.tgz#d7996a71cbddb7da8dd97c29d45efd9f25c2d60b"
   integrity sha512-N9a4eJRmWgP5zT2AZ41BnBgCSQJiw4dc5Q2U9zQ5aOhOs+8Jb218tX79MIAfwt1s4rbTZmgAdsBUn9Xs93Kmrw==
@@ -2010,14 +1989,6 @@
     clsx "^2.0.0"
     prop-types "^15.8.1"
     react-transition-group "^4.4.5"
-
-"@mui/x-license-pro@6.10.2":
-  version "6.10.2"
-  resolved "https://registry.yarnpkg.com/@mui/x-license-pro/-/x-license-pro-6.10.2.tgz#68b069214efb085f7f8c34b73d450743857e0aea"
-  integrity sha512-Baw3shilU+eHgU+QYKNPFUKvfS5rSyNJ98pQx02E0gKA22hWp/XAt88K1qUfUMPlkPpvg/uci6gviQSSLZkuKw==
-  dependencies:
-    "@babel/runtime" "^7.22.6"
-    "@mui/utils" "^5.13.7"
 
 "@mui/x-tree-view@^6.17.0":
   version "6.17.0"
@@ -2456,11 +2427,6 @@
     "@types/express-serve-static-core" "^4.17.18"
     "@types/qs" "*"
     "@types/serve-static" "*"
-
-"@types/format-util@^1.0.3":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@types/format-util/-/format-util-1.0.4.tgz#c4e3b556735149fdf047898a5b9c04650491509b"
-  integrity sha512-xrCYOdHh5zA3LUrn6CvspYwlzSWxPso11Lx32WnAG6KvLCRecKZ/Rh21PLXUkzUFsQmrGcx/traJAFjR6dVS5Q==
 
 "@types/graceful-fs@^4.1.2":
   version "4.1.5"
