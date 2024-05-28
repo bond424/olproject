@@ -13,6 +13,7 @@ import { Grid } from '@mui/material';
 import { Select, Translate, defaults as defaultInteractions } from 'ol/interaction.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFeatureLayer } from 'store/slice/layerSlice';
+import { getFileTable } from 'store/slice/geofileSlice';
 import { activeDrawf } from 'store/reducers/menu';
 
 import MapContext from './MapContext';
@@ -28,18 +29,15 @@ register(proj4);
 const BaseMap = ({ children }) => {
     const dispatch = useDispatch();
     const [mapObject, setMapObject] = useState({});
-    // const drawsource = new VectorSource({ wrapX: false });
     const { getLayerUrl } = useSelector((state) => state.menu);
-    // const [tileLayerUrl, setTileLayerUrl] = useState();
-    // const [showMainLayer, setShowMainLayer] = useState(true);
-    // const [showSetSlayer, setShowSetSlayer] = useState(true);
-    // const [vctLayer, setvctLayer] = useState(null);
 
     const { featureLayer } = useSelector((state) => state.layerRedycer);
+    const { filefeatureLayer } = useSelector((state) => state.geofileRedycer);
 
     useEffect(() => {
         dispatch(activeDrawf({ drawFeature: false }));
         // dispatch(setFeatureLayer());
+        dispatch(getFileTable());
     }, []);
 
     useEffect(() => {
@@ -92,6 +90,13 @@ const BaseMap = ({ children }) => {
             console.log(featureLayer);
         }
     }, [featureLayer]);
+
+    useEffect(() => {
+        console.log('11');
+        if (filefeatureLayer.length > 0) {
+            console.log(filefeatureLayer[10]);
+        }
+    }, [filefeatureLayer]);
 
     if (!mapObject) {
         return null;
