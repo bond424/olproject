@@ -15,6 +15,7 @@ import { makeStyles } from '@mui/styles';
 
 import ReportFor from './Fillpages/ReportFor';
 import RoadinFor from './Fillpages/RoadinFor';
+import { BorderBottom } from '../../../../../node_modules/@mui/icons-material/index';
 // ==============================|| DRAWER CONTENT ||============================== //
 
 function TabPanel(props) {
@@ -29,7 +30,7 @@ function TabPanel(props) {
             {...other}
         >
             {value === index && (
-                <Box sx={{ pt: 1 }}>
+                <Box sx={{ pt: 0 }}>
                     <Typography>{children}</Typography>
                 </Box>
             )}
@@ -52,18 +53,33 @@ function a11yProps(index) {
 
 const useStyles = makeStyles({
     tabLabel: {
-        fontFamily: 'YourFont',
-        fontSize: '16px',
+        fontFamily: 'NotoSansKr',
+        fontSize: '18px',
         fontWeight: 'bold'
     },
     tabs: {
         '& .MuiTabs-indicator': {
             backgroundColor: '#fff',
-            height: 0
+            color: '#18181C',
+            height: 0,
+            opacity: '1 !important'
+        },
+        '& .MuiTab-root': {
+            backgroundColor: '#fff',
+            color: '#18181C',
+            opacity: '1 !important'
         },
         '& .MuiTab-root.Mui-selected': {
             backgroundColor: '#fff',
-            color: '#1890ff'
+            color: '#6995D5',
+            opacity: '1 !important'
+        },
+        '& .MuiTabs-indicator': {
+            backgroundColor: '#6995D5', // 선택된 탭 밑줄 색상
+            opacity: '1 !important'
+        },
+        '&:not(.Mui-selected)': {
+            backgroundColor: '#fff'
         }
     }
 });
