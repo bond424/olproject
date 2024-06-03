@@ -7,6 +7,8 @@ import { ThemeProvider } from '../node_modules/@mui/styles/index';
 import { createTheme } from '@mui/material';
 import './assets/fonts/font.css';
 import '../src/assets/fonts/NotoSansKR-Regular.woff';
+import { Buffer } from 'buffer';
+global.Buffer = Buffer;
 
 const theme = createTheme({
     typography: {

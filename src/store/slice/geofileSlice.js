@@ -3,7 +3,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 // initial state
 const initialState = {
-    filefeatureLayer: []
+    filefeatureLayer: [],
+    setshpfiles: []
 };
 
 export const getFileTable = createAsyncThunk('geoFileController/euckr_epsg', async () => {
@@ -19,6 +20,10 @@ const geofileSlice = createSlice({
     reducers: {
         addGeoFileLayer(state) {
             state.filefeatureLayer = initialState.filefeatureLayer;
+        },
+
+        addSetshp(state, action) {
+            state.setshpfiles = action.payload.setshpfiles;
         }
     },
     extraReducers: (builder) => {
@@ -28,6 +33,6 @@ const geofileSlice = createSlice({
     }
 });
 
-export const { addGeoFileLayer } = geofileSlice.actions;
+export const { addGeoFileLayer, addSetshp } = geofileSlice.actions;
 
 export default geofileSlice.reducer;

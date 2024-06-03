@@ -42,7 +42,7 @@ const BaseMap = ({ children }) => {
 
     useEffect(() => {
         const initialCenterEPSG4326 = [126.64863, 35.7841];
-        const initialCenterEPSG3857 = [14103346.019885818, 4277262.068647152];
+        const initialCenterEPSG3857 = [14122509.76317695, 4189951.223240547];
 
         const transformedCenter = transform(initialCenterEPSG3857, 'EPSG:3857', 'EPSG:5179');
 
@@ -92,7 +92,6 @@ const BaseMap = ({ children }) => {
     }, [featureLayer]);
 
     useEffect(() => {
-        console.log('11');
         if (filefeatureLayer.length > 0) {
             console.log(filefeatureLayer[10]);
         }

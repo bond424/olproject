@@ -15,6 +15,7 @@ import Search from './Search';
 import Profile from './Profile';
 import Notification from './Notification';
 import MobileSection from './MobileSection';
+import UploadPopup from './UploadPopup/UploadPopup';
 
 import { activeItem, activeDrawf, activeSwitchf } from 'store/reducers/menu';
 
@@ -100,7 +101,7 @@ const HeaderContent = () => {
             >
                 <LibraryAddCheckIcon />
             </IconButton>
-            <IconButton
+            {/* <IconButton
                 {...fileProps}
                 onClick={() => itemHandler('uploadmap')}
                 target="_blank"
@@ -110,8 +111,8 @@ const HeaderContent = () => {
                 sx={{ color: 'text.primary', bgcolor: 'grey.100', mr: 0.75 }}
             >
                 <FileUploadIcon />
-            </IconButton>
-            <IconButton
+            </IconButton> */}
+            {/* <IconButton
                 {...reportpopup}
                 onClick={() => itemHandler('uploadmap')}
                 target="_blank"
@@ -121,7 +122,8 @@ const HeaderContent = () => {
                 sx={{ color: 'text.primary', bgcolor: 'grey.100', mr: 0.75 }}
             >
                 <SummarizeIcon />
-            </IconButton>
+            </IconButton> */}
+            <UploadPopup />
 
             <Notification />
             {!matchesXs && <Profile />}

@@ -4,6 +4,9 @@ import { Grid } from '@mui/material';
 import { toStringHDMS } from 'ol/coordinate';
 import { toLonLat } from 'ol/proj.js';
 import { containsExtent, containsXY, containsCoordinate } from 'ol/extent';
+import GeoJSON from 'ol/format/GeoJSON.js';
+import { OSM, Vector as VectorSource } from 'ol/source.js';
+import { Vector as VectorLayer } from 'ol/layer.js';
 
 import MapContext from './MapContext';
 import Mapdrawer from './mapfunction/Mapdrawer';
@@ -15,11 +18,15 @@ import MapPopupTable from './mapfunction/MapPopupTable';
 import './mapfunction/static/olpopup.css';
 
 import { filterVectorList } from 'store/reducers/menu';
+import { getAllVectorLayer } from 'store/slice/layerSlice';
 
 const BaseMapUI = () => {
     const dispatch = useDispatch();
     const { map } = useContext(MapContext);
     const { switchFeature, getvectors } = useSelector((state) => state.menu);
+    const { filefeatureLayer } = useSelector((state) => state.geofileRedycer);
+    const { setshpfiles } = useSelector((state) => state.geofileRedycer);
+    const { vectorLayerList } = useSelector((state) => state.layerRedycer);
     const [vectorlist, setvertorList] = useState([]);
 
     function removeOverlayById(overlayId) {
@@ -39,6 +46,7 @@ const BaseMapUI = () => {
             var maplist = map.getAllLayers();
             setvertorList(maplist);
             var overlaylist = [];
+
             // 우클릭 시 실행
             map.on('contextmenu', function (evt) {
                 let selected = null;
@@ -80,6 +88,75 @@ const BaseMapUI = () => {
     }, [vectorlist]);
 
     // const drawsource = new VectorSource({ wrapX: false });
+
+    useEffect(() => {
+        if (filefeatureLayer.length > 0) {
+            const geojsonObject = {
+                type: 'FeatureCollection',
+                crs: {
+                    type: 'name',
+                    properties: {
+                        name: 'EPSG:5179'
+                    }
+                },
+                features: []
+            };
+            for (var i = 0; i < filefeatureLayer.length; i++) {
+                geojsonObject.features.push(filefeatureLayer[i].geom);
+            }
+            console.log(geojsonObject);
+            const geob = new GeoJSON().readFeatures(geojsonObject);
+            const vectorSource = new VectorSource({
+                features: geob
+            });
+
+            const vectorLayer = new VectorLayer({
+                source: vectorSource
+            });
+            // map.addLayer(vectorLayer);
+        }
+    }, [filefeatureLayer]);
+
+    useEffect(() => {
+        // 시작 시
+        if (map !== undefined) {
+            const arr = [];
+            map.getLayers().forEach((layer) => {
+                if (layer instanceof VectorLayer) {
+                    arr.push(...layer);
+                }
+            });
+            console.log(arr);
+            dispatch(getAllVectorLayer({ vectorLayerList: arr }));
+        }
+    }, [vectorLayerList]);
+
+    useEffect(() => {
+        if (setshpfiles.length > 0) {
+            const geojsonObject = {
+                type: 'FeatureCollection',
+                crs: {
+                    type: 'name',
+                    properties: {
+                        name: 'EPSG:5179'
+                    }
+                },
+                features: []
+            };
+            for (var i = 0; i < setshpfiles.length; i++) {
+                geojsonObject.features.push(setshpfiles[i].geojson);
+            }
+            const geob = new GeoJSON().readFeatures(geojsonObject);
+            const vectorSource = new VectorSource({
+                features: geob
+            });
+
+            const vectorLayer = new VectorLayer({
+                source: vectorSource
+            });
+            map.addLayer(vectorLayer);
+        }
+    }, [setshpfiles]);
 
     return (
         <Grid

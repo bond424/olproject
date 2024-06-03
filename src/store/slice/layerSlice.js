@@ -5,7 +5,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 const initialState = {
     featureLayer: [],
     vactorStack: [],
-    featurestack: []
+    featurestack: [],
+    vectorLayerList: []
 };
 
 export const setFeatureLayer = createAsyncThunk('layerController/vectorlayer', async () => {
@@ -29,6 +30,10 @@ const layerSlice = createSlice({
 
         addFeatureStack(state, action) {
             state.featurestack = action.payload.featurestack;
+        },
+
+        getAllVectorLayer(state, action) {
+            state.vectorLayerList = action.payload.vectorLayerList;
         }
     },
     extraReducers: (builder) => {
@@ -38,6 +43,6 @@ const layerSlice = createSlice({
     }
 });
 
-export const { addFeatureLayer, activeComponent, addFeatureStack } = layerSlice.actions;
+export const { addFeatureLayer, activeComponent, addFeatureStack, getAllVectorLayer } = layerSlice.actions;
 
 export default layerSlice.reducer;

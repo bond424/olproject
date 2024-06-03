@@ -23,11 +23,12 @@ import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import { styled } from '@mui/material/styles';
 import 'dayjs/locale/ko';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import { Margin } from '../../../../../../node_modules/@mui/icons-material/index';
+// import { Margin } from '../../../../../../node_modules/@mui/icons-material/index';
 import AuthBackground from 'assets/images/auth/AuthBackground';
 
 function RoadinFor() {
     const { featurestack } = useSelector((state) => state.layerRedycer);
+    const { vectorLayerList } = useSelector((state) => state.layerRedycer);
 
     const [date, setDate] = React.useState('');
     const [type, setType] = React.useState('');
@@ -41,6 +42,10 @@ function RoadinFor() {
     useEffect(() => {
         console.log(featurestack);
     }, [featurestack]);
+
+    useEffect(() => {
+        console.log(vectorLayerList);
+    }, []);
 
     return (
         <Box
