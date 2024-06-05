@@ -13,7 +13,7 @@ import CardContent from '@mui/material/CardContent';
 
 import * as shapefile from 'shapefile';
 
-import { addSetshp } from 'store/slice/geofileSlice';
+import { addSetGeojson, setDBShpFiles, getDBShpFiles } from 'store/slice/geofileSlice';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -30,6 +30,10 @@ const VisuallyHiddenInput = styled('input')({
 
 const UploadPopup = () => {
     const dispatch = useDispatch();
+    const { setshpfiles } = useSelector((state) => state.geofileRedycer);
+    const { geofiles } = useSelector((state) => state.geofileRedycer);
+    const [senddata, setsenddata] = useState([]);
+    const [shape, setshape] = useState();
 
     const theme = useTheme();
     const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
@@ -68,8 +72,7 @@ const UploadPopup = () => {
                             obj.table = result.value.properties; // 속성 테이블 출력
                             arr.push(obj);
                         }
-                        console.log(arr);
-                        dispatch(addSetshp({ setshpfiles: arr }));
+                        dispatch(addSetGeojson({ geojsondata: arr }));
                     } catch (error) {
                         console.error('Error reading SHP/DBF files:', error);
                     }
@@ -82,28 +85,85 @@ const UploadPopup = () => {
         }
     };
 
+    const sendFileDb = (shpFile, dbfFile, shxFile) => {
+        const formdata = new FormData();
+        formdata.append('file', shpFile);
+        formdata.append('file', dbfFile);
+        formdata.append('file', shxFile);
+        setsenddata(formdata);
+    };
+
+    const sendFile = () => {
+        console.log(senddata);
+        dispatch(setDBShpFiles(senddata));
+    };
+
     const onFileChange = (e) => {
         const files = e.target.files;
+        console.log(files);
         if (files.length > 0) {
             let shpFile = null;
             let dbfFile = null;
+            let shxFile = null;
 
+            var arr = [];
             for (let file of files) {
+                var obj = {};
                 const fileType = file.name.split('.').pop().toLowerCase();
                 if (fileType === 'shp') {
                     shpFile = file;
+                    obj.shp = file;
                 } else if (fileType === 'dbf') {
                     dbfFile = file;
+                    obj.dbf = file;
+                } else if (fileType === 'shx') {
+                    shxFile = file;
+                    obj.shx = file;
                 }
+                arr.push(obj);
             }
-
+            console.log(arr);
             if (shpFile && dbfFile) {
+                sendFileDb(shpFile, dbfFile, shxFile);
                 readShpFile(shpFile, dbfFile);
             } else {
                 console.error('Both SHP and DBF files are required.');
             }
         }
     };
+
+    const s2ab = (s) => {
+        var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
+        var view = new Uint8Array(buf); //create uint8array as viewer
+        for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff; //convert to octet
+        return buf;
+    };
+
+    const downloadFile = () => {
+        var foption = new Object();
+        foption.filename = 'euckr_table_5179.shp';
+        Promise.resolve(dispatch(getDBShpFiles(foption))).then(() => {
+            const blob = new Blob([geofiles]);
+            handleDownload(blob);
+        });
+    };
+
+    const handleDownload = (e) => {
+        const url = window.URL.createObjectURL(e);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'euckr_table_5179.shp';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    };
+
+    // useEffect(() => {
+    //     console.log(geofiles);
+    //     const blob = new Blob(geofiles);
+    //     handleDownload(blob);
+    // }, [geofiles]);
 
     return (
         <Box sx={{ flexShrink: 0, ml: 0.75 }}>
@@ -145,10 +205,10 @@ const UploadPopup = () => {
                             sx={{
                                 boxShadow: theme.customShadows.z1,
                                 width: '100%',
-                                minWidth: 285,
+                                minWidth: 420,
                                 maxWidth: 420,
                                 [theme.breakpoints.down('md')]: {
-                                    maxWidth: 285
+                                    maxWidth: 420
                                 }
                             }}
                         >
@@ -165,6 +225,26 @@ const UploadPopup = () => {
                                         >
                                             Upload file
                                             <VisuallyHiddenInput id="shpload" type="file" multiple onChange={onFileChange} />
+                                        </Button>
+                                        <Button
+                                            component="label"
+                                            role={undefined}
+                                            variant="contained"
+                                            tabIndex={-1}
+                                            startIcon={<CloudUploadIcon />}
+                                        >
+                                            send db
+                                            <VisuallyHiddenInput id="onlo" onClick={sendFile} />
+                                        </Button>
+                                        <Button
+                                            component="label"
+                                            role={undefined}
+                                            variant="contained"
+                                            tabIndex={-1}
+                                            startIcon={<CloudUploadIcon />}
+                                        >
+                                            download
+                                            <VisuallyHiddenInput id="dolo" onClick={downloadFile} />
                                         </Button>
                                     </Box>
                                 </CardContent>

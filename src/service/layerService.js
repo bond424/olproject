@@ -1,4 +1,4 @@
-import networkApi from './common/networkApi';
+import { networkApi } from './common/networkApi';
 
 const PREFIX = '/layerController';
 

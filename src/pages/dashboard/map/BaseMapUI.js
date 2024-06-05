@@ -25,7 +25,7 @@ const BaseMapUI = () => {
     const { map } = useContext(MapContext);
     const { switchFeature, getvectors } = useSelector((state) => state.menu);
     const { filefeatureLayer } = useSelector((state) => state.geofileRedycer);
-    const { setshpfiles } = useSelector((state) => state.geofileRedycer);
+    const { geojsondata } = useSelector((state) => state.geofileRedycer);
     const { vectorLayerList } = useSelector((state) => state.layerRedycer);
     const [vectorlist, setvertorList] = useState([]);
 
@@ -132,7 +132,7 @@ const BaseMapUI = () => {
     }, [vectorLayerList]);
 
     useEffect(() => {
-        if (setshpfiles.length > 0) {
+        if (geojsondata.length > 0) {
             const geojsonObject = {
                 type: 'FeatureCollection',
                 crs: {
@@ -143,8 +143,8 @@ const BaseMapUI = () => {
                 },
                 features: []
             };
-            for (var i = 0; i < setshpfiles.length; i++) {
-                geojsonObject.features.push(setshpfiles[i].geojson);
+            for (var i = 0; i < geojsondata.length; i++) {
+                geojsonObject.features.push(geojsondata[i].geojson);
             }
             const geob = new GeoJSON().readFeatures(geojsonObject);
             const vectorSource = new VectorSource({
@@ -156,7 +156,7 @@ const BaseMapUI = () => {
             });
             map.addLayer(vectorLayer);
         }
-    }, [setshpfiles]);
+    }, [geojsondata]);
 
     return (
         <Grid
