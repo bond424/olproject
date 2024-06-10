@@ -88,8 +88,8 @@ const UploadPopup = () => {
     const sendFileDb = (shpFile, dbfFile, shxFile) => {
         const formdata = new FormData();
         formdata.append('file', shpFile);
-        formdata.append('file', dbfFile);
-        formdata.append('file', shxFile);
+        formdata.append('file2', dbfFile);
+        formdata.append('file3', shxFile);
         setsenddata(formdata);
     };
 
@@ -132,19 +132,15 @@ const UploadPopup = () => {
         }
     };
 
-    const s2ab = (s) => {
-        var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
-        var view = new Uint8Array(buf); //create uint8array as viewer
-        for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff; //convert to octet
-        return buf;
-    };
-
     const downloadFile = () => {
         var foption = new Object();
-        foption.filename = 'euckr_table_5179.shp';
+        foption.filename = 'euckr_table_5179';
         Promise.resolve(dispatch(getDBShpFiles(foption))).then(() => {
-            const blob = new Blob([geofiles]);
-            handleDownload(blob);
+            setTimeout(function () {
+                console.log(geofiles);
+                const blob = new Blob([geofiles], { type: 'application/zip' });
+                handleDownload(blob);
+            }, 0);
         });
     };
 
@@ -153,7 +149,8 @@ const UploadPopup = () => {
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
-        a.download = 'euckr_table_5179.shp';
+        a.setAttribute('download', `euckr_table_5179.zip`);
+        // a.download = 'euckr_table_5179.shp';
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);

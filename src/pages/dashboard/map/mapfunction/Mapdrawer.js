@@ -29,6 +29,7 @@ const Mapdrawer = () => {
     const [source, setSource] = useState();
     const [modify, setModify] = useState();
     const [vector, setVector] = useState();
+    const [draw, setdraw] = useState();
     const flist = [];
     const [poList, setPoList] = useState([]);
     const { filefeatureLayer } = useSelector((state) => state.geofileRedycer);
@@ -122,13 +123,15 @@ const Mapdrawer = () => {
         features: select.getFeatures()
     });
 
-    let draw;
+    // let draw;
 
     function addInteraction(typevalue) {
         map.removeInteraction(translate);
         map.removeInteraction(select);
         if (draw !== null) {
             map.removeInteraction(draw);
+            setdraw(null);
+            // draw = null;
         }
         if (typevalue !== 'None') {
             const drawType = typevalue;
@@ -136,18 +139,18 @@ const Mapdrawer = () => {
             const idleTip = 'Click to start measuring';
             let tip = idleTip;
 
-            draw = new Draw({
+            const drawset = new Draw({
                 source: source,
                 type: drawType,
                 style: function (feature) {
                     return StyleFunction(feature, drawType, tip, modify);
                 }
             });
-            draw.on('drawstart', function () {
+            drawset.on('drawstart', function () {
                 modify.setActive(false);
                 tip = activeTip;
             });
-            draw.on('drawend', function (e) {
+            drawset.on('drawend', function (e) {
                 var feature = e.feature;
                 modifyStyle.setGeometry(getTipPoint);
                 modify.setActive(true);
@@ -155,13 +158,16 @@ const Mapdrawer = () => {
                     modifyStyle.setGeometry();
                 });
                 tip = idleTip;
+                console.log(map.interactions.array_);
+                console.log('end');
                 setTimeout(function () {
                     getAllFeatures(feature);
                 }, 0);
             });
             modify.setActive(true);
-            map.addInteraction(draw);
-            draw.getOverlay().changed();
+            map.addInteraction(drawset);
+            drawset.getOverlay().changed();
+            setdraw(drawset);
         }
     }
 

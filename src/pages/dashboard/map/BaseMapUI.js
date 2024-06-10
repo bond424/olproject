@@ -89,33 +89,33 @@ const BaseMapUI = () => {
 
     // const drawsource = new VectorSource({ wrapX: false });
 
-    useEffect(() => {
-        if (filefeatureLayer.length > 0) {
-            const geojsonObject = {
-                type: 'FeatureCollection',
-                crs: {
-                    type: 'name',
-                    properties: {
-                        name: 'EPSG:5179'
-                    }
-                },
-                features: []
-            };
-            for (var i = 0; i < filefeatureLayer.length; i++) {
-                geojsonObject.features.push(filefeatureLayer[i].geom);
-            }
-            console.log(geojsonObject);
-            const geob = new GeoJSON().readFeatures(geojsonObject);
-            const vectorSource = new VectorSource({
-                features: geob
-            });
+    // useEffect(() => {
+    //     if (filefeatureLayer.length > 0) {
+    //         const geojsonObject = {
+    //             type: 'FeatureCollection',
+    //             crs: {
+    //                 type: 'name',
+    //                 properties: {
+    //                     name: 'EPSG:5179'
+    //                 }
+    //             },
+    //             features: []
+    //         };
+    //         for (var i = 0; i < filefeatureLayer.length; i++) {
+    //             geojsonObject.features.push(filefeatureLayer[i].geom);
+    //         }
+    //         console.log(geojsonObject);
+    //         const geob = new GeoJSON().readFeatures(geojsonObject);
+    //         const vectorSource = new VectorSource({
+    //             features: geob
+    //         });
 
-            const vectorLayer = new VectorLayer({
-                source: vectorSource
-            });
-            // map.addLayer(vectorLayer);
-        }
-    }, [filefeatureLayer]);
+    //         const vectorLayer = new VectorLayer({
+    //             source: vectorSource
+    //         });
+    //         // map.addLayer(vectorLayer);
+    //     }
+    // }, [filefeatureLayer]);
 
     useEffect(() => {
         // 시작 시
@@ -131,32 +131,32 @@ const BaseMapUI = () => {
         }
     }, [vectorLayerList]);
 
-    useEffect(() => {
-        if (geojsondata.length > 0) {
-            const geojsonObject = {
-                type: 'FeatureCollection',
-                crs: {
-                    type: 'name',
-                    properties: {
-                        name: 'EPSG:5179'
-                    }
-                },
-                features: []
-            };
-            for (var i = 0; i < geojsondata.length; i++) {
-                geojsonObject.features.push(geojsondata[i].geojson);
-            }
-            const geob = new GeoJSON().readFeatures(geojsonObject);
-            const vectorSource = new VectorSource({
-                features: geob
-            });
+    // useEffect(() => {
+    //     if (geojsondata.length > 0) {
+    //         const geojsonObject = {
+    //             type: 'FeatureCollection',
+    //             crs: {
+    //                 type: 'name',
+    //                 properties: {
+    //                     name: 'EPSG:5179'
+    //                 }
+    //             },
+    //             features: []
+    //         };
+    //         for (var i = 0; i < geojsondata.length; i++) {
+    //             geojsonObject.features.push(geojsondata[i].geojson);
+    //         }
+    //         const geob = new GeoJSON().readFeatures(geojsonObject);
+    //         const vectorSource = new VectorSource({
+    //             features: geob
+    //         });
 
-            const vectorLayer = new VectorLayer({
-                source: vectorSource
-            });
-            map.addLayer(vectorLayer);
-        }
-    }, [geojsondata]);
+    //         const vectorLayer = new VectorLayer({
+    //             source: vectorSource
+    //         });
+    //         map.addLayer(vectorLayer);
+    //     }
+    // }, [geojsondata]);
 
     return (
         <Grid
