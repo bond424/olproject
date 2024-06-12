@@ -27,7 +27,7 @@ import AuthBackground from 'assets/images/auth/AuthBackground';
 
 import * as shapefile from 'shapefile';
 
-import { addSetGeojson, setDBShpFiles, getDBShpFiles, getAllDBFiles } from 'store/slice/geofileSlice';
+import { addSetGeojson, setDBShpFiles, getDBShpFiles, getAllDBFiles, stsetgeo, strdbfset, setalert } from 'store/slice/geofileSlice';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -48,11 +48,13 @@ function ShpFileFor() {
     const { geofiles } = useSelector((state) => state.geofileRedycer);
     const { setshpfiles } = useSelector((state) => state.geofileRedycer);
     const { stgeojsondata } = useSelector((state) => state.geofileRedycer);
+    const { startdbfset } = useSelector((state) => state.geofileRedycer);
 
     const [senddata, setsenddata] = useState([]);
     const [date, setDate] = useState('');
     const [type, setType] = useState('');
     const [dfiles, setdfiles] = useState(null);
+    const [showsg, setshowsg] = useState(null);
     const [shpdt, setshpdt] = useState();
     const [dbfdt, setdbfdt] = useState();
 
@@ -76,6 +78,7 @@ function ShpFileFor() {
         try {
             const shpReader = new FileReader();
             const dbfReader = new FileReader();
+            const fname = shpFile.name;
             var arr = [];
             shpReader.onload = (shpEvent) => {
                 dbfReader.onload = async (dbfEvent) => {
@@ -88,6 +91,7 @@ function ShpFileFor() {
                             var obj = {};
                             obj.geojson = result.value; // GeoJSON 출력
                             obj.table = result.value.properties; // 속성 테이블 출력
+                            obj.name = fname;
                             arr.push(obj);
                         }
                         const updatedGeojsonData = [...stgeojsondata, ...arr];
@@ -188,10 +192,23 @@ function ShpFileFor() {
 
     const onshpfile = (n) => {
         var filename = n;
-        Promise.resolve(dispatch(getDBShpFiles(foption))).then(() => {
-            setdfiles(n);
+        var obj = {};
+        obj.filenm = filename;
+        obj.shp = filename + '.shp';
+        obj.dbf = filename + '.dbf';
+        Promise.resolve(dispatch(strdbfset(obj))).then(() => {
+            setshowsg(n);
         });
     };
+
+    useEffect(() => {
+        if (showsg !== null && startdbfset !== null) {
+            const blob = new Blob([startdbfset], { type: 'application/zip' });
+            // handleDownload(blob, showsg);
+            setshowsg(null);
+            dispatch(setalert({ insertalert: true }));
+        }
+    }, [showsg, startdbfset]);
 
     return (
         <Box
@@ -347,8 +364,12 @@ function ShpFileFor() {
                         </ListItemAvatar>
                         <ListItemText primary={feature.fileid} secondary={feature.fileid} />
                         <Button sx={{ padding: '6px 10px' }} component="label" variant="contained" tabIndex={-1}>
-                            CSV 출력
+                            도시
                             <VisuallyHiddenInput onClick={() => onshpfile(feature.filename)} />
+                        </Button>
+                        <Button sx={{ padding: '6px 10px', ml: '4px' }} component="label" variant="contained" tabIndex={-1}>
+                            CSV 출력
+                            <VisuallyHiddenInput />
                         </Button>
                         <Button sx={{ padding: '6px 10px', ml: '4px' }} component="label" variant="contained" tabIndex={-1}>
                             파일 다운로드

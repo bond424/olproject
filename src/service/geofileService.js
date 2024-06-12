@@ -13,7 +13,8 @@ const geofileService = {
     getAllDBFiles: () => networkApi.get(`${PREFIX}/getallDBFiles`),
     startdbfset: (info) =>
         networkApi.get(`${PREFIX}/startdbfset`, {
-            params: { param: JSON.stringify(info) }
+            params: { param: JSON.stringify(info) },
+            responseType: 'blob'
         })
 };
 

@@ -10,12 +10,7 @@ function MapPopupTable(map, coordinate, selected) {
     var createA = document.createElement('a');
     var arr1 = [
         { name: '농장주', age: '나이', width: '넓이', purchaseHistory: '구매 이력' },
-        { name: '네글자임', age: '10세', width: '223.35KM²', purchaseHistory: '2024.12.31 05:31' },
-        { name: '김수한무', age: '101세', width: '31.35KM²', purchaseHistory: '2024.05.10 16:08' },
-        { name: '홍길동', age: '50세', width: '1.76KM²', purchaseHistory: '2021.04.03 20:24' },
-        { name: '김유한', age: '43세', width: '176.78M²', purchaseHistory: '2022.02.22 02:22' },
-        { name: '고길동', age: '22세', width: '1018.13KM²', purchaseHistory: '2021.12.31 06:31' },
-        { name: '유명한', age: '9세', width: '81.71KM²', purchaseHistory: '2022.12.31 19:23' }
+        { name: '네글자임', age: '10세', width: '223.35KM²', purchaseHistory: '2024.12.31 05:31' }
     ];
     createTitle.classList.add('popupTitle');
     createTable.className = 'popTable';

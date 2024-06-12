@@ -11,7 +11,8 @@ const initialState = {
     getAllFiles: [],
     setcorfiles: [],
     stgeojsondata: [],
-    startdbfset: []
+    startdbfset: [],
+    insertalert: false
 };
 
 export const getFileTable = createAsyncThunk('geoFileController/euckr_epsg', async () => {
@@ -33,7 +34,6 @@ export const getAllDBFiles = createAsyncThunk('geoFileController/getallDBFiles',
     const response = await geofileService.getAllDBFiles(info);
     return response.data;
 });
-
 
 export const strdbfset = createAsyncThunk('geoFileController/startdbfset', async (info) => {
     const response = await geofileService.startdbfset(info);
@@ -60,6 +60,10 @@ const geofileSlice = createSlice({
 
         stsetgeo(state, action) {
             state.stgeojsondata = action.payload.stgeojsondata;
+        },
+
+        setalert(state, action) {
+            state.insertalert = action.payload.insertalert;
         }
     },
     extraReducers: (builder) => {
@@ -81,6 +85,6 @@ const geofileSlice = createSlice({
     }
 });
 
-export const { addGeoFileLayer, addSetGeojson, setCorfile, stsetgeo } = geofileSlice.actions;
+export const { addGeoFileLayer, addSetGeojson, setCorfile, stsetgeo, setalert } = geofileSlice.actions;
 
 export default geofileSlice.reducer;

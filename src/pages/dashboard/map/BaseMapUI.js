@@ -30,6 +30,8 @@ const BaseMapUI = () => {
     const { geojsondata } = useSelector((state) => state.geofileRedycer);
     const { vectorLayerList } = useSelector((state) => state.layerRedycer);
     const [vectorlist, setvertorList] = useState([]);
+    const [coord, setcoord] = useState();
+    const [ftselect, setftselect] = useState();
 
     function removeOverlayById(overlayId) {
         const overlays = map.getOverlays().getArray();
@@ -66,7 +68,9 @@ const BaseMapUI = () => {
                 });
                 if (selected !== null) {
                     var selectedExtent = selected.getGeometry().getExtent();
-                    MapPopupTable(map, coordinate, selected);
+                    // MapPopupTable(map, coordinate, selected);
+                    setftselect(selected);
+                    setcoord(coordinate);
                     map.getOverlays().forEach(function (ov) {
                         if (containsCoordinate(selectedExtent, ov.getPosition())) {
                             let overid = { popid: ov.ol_uid, featureobj: selectedExtent };
@@ -117,6 +121,7 @@ const BaseMapUI = () => {
             {switchFeature && <MapSwitch map={map} />}
             <ShowFiles />
             <Mapdrawer />
+            {/* <MapPopupTable coord={coord} selected={ftselect} /> */}
             <div id="map" style={{ width: '100%', height: '61rem' }}></div>
         </Grid>
     );
