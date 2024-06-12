@@ -40,10 +40,10 @@ const ShowFiles = () => {
                 .getArray()
                 .forEach((layer) => {
                     if (layer instanceof VectorLayer) {
-                        layerarr.push(...layer);
+                        setvsarr((prevlist) => [...prevlist, layer]);
+                        // layerarr.push(...layer);
                     }
                 });
-            setvsarr((prevlist) => [...prevlist, arr]);
             console.log(layerarr);
         }
     }, [map]);
