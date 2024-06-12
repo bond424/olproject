@@ -15,6 +15,7 @@ import { makeStyles } from '@mui/styles';
 
 import ReportFor from './Fillpages/ReportFor';
 import RoadinFor from './Fillpages/RoadinFor';
+import ShpFileFor from './Fillpages/ShpFileFor';
 import { BorderBottom } from '../../../../../node_modules/@mui/icons-material/index';
 // ==============================|| DRAWER CONTENT ||============================== //
 
@@ -128,7 +129,7 @@ function DrawerContent() {
                 <RoadinFor />
             </TabPanel>
             <TabPanel value={value} index={2} dir={theme.direction}>
-                *
+                <ShpFileFor />
             </TabPanel>
             {/* <Navigation /> */}
         </SimpleBar>

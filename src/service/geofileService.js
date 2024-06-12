@@ -9,6 +9,11 @@ const geofileService = {
         networkApi.get(`${PREFIX}/downloadShpFiles`, {
             params: { filename: JSON.stringify(info) },
             responseType: 'blob'
+        }),
+    getAllDBFiles: () => networkApi.get(`${PREFIX}/getallDBFiles`),
+    startdbfset: (info) =>
+        networkApi.get(`${PREFIX}/startdbfset`, {
+            params: { param: JSON.stringify(info) }
         })
 };
 

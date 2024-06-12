@@ -94,7 +94,6 @@ const UploadPopup = () => {
     };
 
     const sendFile = () => {
-        console.log(senddata);
         dispatch(setDBShpFiles(senddata));
     };
 

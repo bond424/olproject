@@ -7,7 +7,11 @@ const initialState = {
     setshpfiles: [],
     geojsondata: [],
     geofiles: [],
-    dbfileList: []
+    dbfileList: [],
+    getAllFiles: [],
+    setcorfiles: [],
+    stgeojsondata: [],
+    startdbfset: []
 };
 
 export const getFileTable = createAsyncThunk('geoFileController/euckr_epsg', async () => {
@@ -25,6 +29,17 @@ export const getDBShpFiles = createAsyncThunk('geoFileController/downloadShpFile
     return response.data;
 });
 
+export const getAllDBFiles = createAsyncThunk('geoFileController/getallDBFiles', async (info) => {
+    const response = await geofileService.getAllDBFiles(info);
+    return response.data;
+});
+
+
+export const strdbfset = createAsyncThunk('geoFileController/startdbfset', async (info) => {
+    const response = await geofileService.startdbfset(info);
+    return response.data;
+});
+
 // ==============================|| SLICE - MENU ||============================== //
 
 const geofileSlice = createSlice({
@@ -37,6 +52,14 @@ const geofileSlice = createSlice({
 
         addSetGeojson(state, action) {
             state.geojsondata = action.payload.geojsondata;
+        },
+
+        setCorfile(state, action) {
+            state.setcorfiles = action.payload.setcorfiles;
+        },
+
+        stsetgeo(state, action) {
+            state.stgeojsondata = action.payload.stgeojsondata;
         }
     },
     extraReducers: (builder) => {
@@ -49,9 +72,15 @@ const geofileSlice = createSlice({
         builder.addCase(getDBShpFiles.fulfilled, (state, action) => {
             state.geofiles = action.payload;
         });
+        builder.addCase(getAllDBFiles.fulfilled, (state, action) => {
+            state.getAllFiles = action.payload;
+        });
+        builder.addCase(strdbfset.fulfilled, (state, action) => {
+            state.startdbfset = action.payload;
+        });
     }
 });
 
-export const { addGeoFileLayer, addSetGeojson } = geofileSlice.actions;
+export const { addGeoFileLayer, addSetGeojson, setCorfile, stsetgeo } = geofileSlice.actions;
 
 export default geofileSlice.reducer;

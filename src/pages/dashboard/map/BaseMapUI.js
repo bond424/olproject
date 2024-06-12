@@ -14,11 +14,13 @@ import MapSwitch from './mapfunction/MapSwitch';
 import MapUploadData from './mapfunction/MapUploadData';
 import MapPopup from './mapfunction/MapPopup';
 import MapPopupTable from './mapfunction/MapPopupTable';
+import ShowFiles from './mapfunction/ShowFiles';
 
 import './mapfunction/static/olpopup.css';
 
 import { filterVectorList } from 'store/reducers/menu';
 import { getAllVectorLayer } from 'store/slice/layerSlice';
+import { getAllDBFiles } from 'store/slice/geofileSlice';
 
 const BaseMapUI = () => {
     const dispatch = useDispatch();
@@ -39,6 +41,10 @@ const BaseMapUI = () => {
             console.log('No overlay found with id:', overlayId);
         }
     }
+
+    useEffect(() => {
+        dispatch(getAllDBFiles());
+    }, []);
 
     useEffect(() => {
         if (map !== undefined) {
@@ -87,36 +93,6 @@ const BaseMapUI = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [vectorlist]);
 
-    // const drawsource = new VectorSource({ wrapX: false });
-
-    // useEffect(() => {
-    //     if (filefeatureLayer.length > 0) {
-    //         const geojsonObject = {
-    //             type: 'FeatureCollection',
-    //             crs: {
-    //                 type: 'name',
-    //                 properties: {
-    //                     name: 'EPSG:5179'
-    //                 }
-    //             },
-    //             features: []
-    //         };
-    //         for (var i = 0; i < filefeatureLayer.length; i++) {
-    //             geojsonObject.features.push(filefeatureLayer[i].geom);
-    //         }
-    //         console.log(geojsonObject);
-    //         const geob = new GeoJSON().readFeatures(geojsonObject);
-    //         const vectorSource = new VectorSource({
-    //             features: geob
-    //         });
-
-    //         const vectorLayer = new VectorLayer({
-    //             source: vectorSource
-    //         });
-    //         // map.addLayer(vectorLayer);
-    //     }
-    // }, [filefeatureLayer]);
-
     useEffect(() => {
         // 시작 시
         if (map !== undefined) {
@@ -131,33 +107,6 @@ const BaseMapUI = () => {
         }
     }, [vectorLayerList]);
 
-    // useEffect(() => {
-    //     if (geojsondata.length > 0) {
-    //         const geojsonObject = {
-    //             type: 'FeatureCollection',
-    //             crs: {
-    //                 type: 'name',
-    //                 properties: {
-    //                     name: 'EPSG:5179'
-    //                 }
-    //             },
-    //             features: []
-    //         };
-    //         for (var i = 0; i < geojsondata.length; i++) {
-    //             geojsonObject.features.push(geojsondata[i].geojson);
-    //         }
-    //         const geob = new GeoJSON().readFeatures(geojsonObject);
-    //         const vectorSource = new VectorSource({
-    //             features: geob
-    //         });
-
-    //         const vectorLayer = new VectorLayer({
-    //             source: vectorSource
-    //         });
-    //         map.addLayer(vectorLayer);
-    //     }
-    // }, [geojsondata]);
-
     return (
         <Grid
             container
@@ -166,6 +115,7 @@ const BaseMapUI = () => {
             }}
         >
             {switchFeature && <MapSwitch map={map} />}
+            <ShowFiles />
             <Mapdrawer />
             <div id="map" style={{ width: '100%', height: '61rem' }}></div>
         </Grid>

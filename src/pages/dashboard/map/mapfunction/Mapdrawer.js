@@ -92,31 +92,6 @@ const Mapdrawer = () => {
         }
     }, [modify, vector]);
 
-    // useEffect(() => {
-    //     if (filefeatureLayer.length > 0 && source) {
-    //         const geojsonObject = {
-    //             type: 'FeatureCollection',
-    //             crs: {
-    //                 type: 'name',
-    //                 properties: {
-    //                     name: 'EPSG:5179'
-    //                 }
-    //             },
-    //             features: []
-    //         };
-    //         for (var i = 0; i < filefeatureLayer.length; i++) {
-    //             geojsonObject.features.push(filefeatureLayer[i].geom);
-    //         }
-    //         const geofobj = new GeoJSON().readFeatures(geojsonObject);
-
-    //         if (Array.isArray(geofobj)) {
-    //             geofobj.forEach((feature) => source.addFeature(feature));
-    //         } else {
-    //             console.error('GeoJSON readFeatures did not return an array of features.');
-    //         }
-    //     }
-    // }, [filefeatureLayer, source]);
-
     const select = new Select();
 
     const translate = new Translate({
