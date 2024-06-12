@@ -121,7 +121,7 @@ const BaseMapUI = () => {
             {switchFeature && <MapSwitch map={map} />}
             <ShowFiles />
             <Mapdrawer />
-            {/* <MapPopupTable coord={coord} selected={ftselect} /> */}
+            {ftselect !== undefined && <MapPopupTable coord={coord} selected={ftselect} />}
             <div id="map" style={{ width: '100%', height: '61rem' }}></div>
         </Grid>
     );
