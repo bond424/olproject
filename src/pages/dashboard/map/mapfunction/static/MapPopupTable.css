@@ -22,7 +22,7 @@
 .MuiDataGrid-row.Mui-hovered {
     background-color: #BACFF1 !important;
 }
-.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium {
+.PrivateSwitchBase-input > .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium {
     color:#18181c5f !important
 }
 .MuiDataGrid-columnHeadersInner .MuiSvgIcon-root{
