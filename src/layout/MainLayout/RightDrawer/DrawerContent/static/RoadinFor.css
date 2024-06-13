@@ -1,0 +1,66 @@
+
+.boxWarper {
+    width: 549px;
+    padding-Top: 10px;
+    padding-Bottom: 10px;
+}
+.boxBody {
+    width: 549px;
+    height: 100svh;
+    background-color: #f3f3f5;
+}
+.RoadinForForm1 {
+    min-width: 147px;
+    display: inline-block;
+    margin-left: 10px;
+    background-color: #fff;
+    font-family: 'notoSansKr';
+}
+.RoadinForSelect1 {
+    border-radius: 5px;
+    min-width: 147px;
+    height: 32px;
+    padding: 0px;
+    font-family: 'NotoSansKr';
+}
+.RoadinForForm2 {
+    min-width: 130px;
+    display:inline-block;
+    margin-left: 10px;
+    background-color: #fff;
+    font-family: 'NotoSansKr';
+}
+.RoadinForSelect2 {
+    border-radius: 5px;
+    min-width: 130px;
+    height: 32px;
+    padding: 0px;
+    font-family: 'NotoSansKr';
+}
+.RoadinForForm3 {
+    width:230px;
+    margin-left: 10px;
+    background-color:#fff ;
+    padding-right: 0px;
+}
+.RoadinForInput1 {
+    padding: 0px;
+    font-family: 'NotoSansKr';
+    border-radius: 5px;
+    height:32px;
+}
+.RoadinForInputButton1 {
+    background-color: #6995d5;
+    font-family:'NotoSansKr';
+    font-size: 14px;
+    height:32px;
+    color:#fff;
+    width:39px;
+    margin-right: 0px;
+    border-radius: 0px 5px 5px 0px;
+}
+.list1 {
+    width:100%;
+    background-color: #fff;
+    padding:0px;
+}

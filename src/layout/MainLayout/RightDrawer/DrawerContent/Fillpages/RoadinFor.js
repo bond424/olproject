@@ -25,7 +25,7 @@ import 'dayjs/locale/ko';
 import OutlinedInput from '@mui/material/OutlinedInput';
 // import { Margin } from '../../../../../../node_modules/@mui/icons-material/index';
 import AuthBackground from 'assets/images/auth/AuthBackground';
-
+import '../static/RoadinFor.css'; //스타일
 function RoadinFor() {
     const { featurestack } = useSelector((state) => state.layerRedycer);
     const { vectorLayerList } = useSelector((state) => state.layerRedycer);
@@ -48,31 +48,11 @@ function RoadinFor() {
     }, []);
 
     return (
-        <Box
-            sx={{
-                width: '549px',
-                height: 1080,
-                backgroundColor: '#F3F3F5'
-            }}
-        >
-            <div
-                className="boxWarper"
-                style={{
-                    width: '549px',
-                    paddingTop: '10px',
-                    paddingBottom: '10px'
-                }}
-            >
-                <FormControl
-                    sx={{
-                        minWidth: 147,
-                        display: 'inline-block',
-                        marginLeft: '10px',
-                        backgroundColor: '#fff',
-                        fontFamily: 'NotoSansKr'
-                    }}
-                >
+        <Box className="boxBody">
+            <Box className="boxWarper">
+                <FormControl className="RoadinForForm1">
                     <Select
+                        className="RoadinForSelect1"
                         value={date}
                         onChange={dateChange}
                         displayEmpty
@@ -82,16 +62,6 @@ function RoadinFor() {
                                 padding: 0
                             }
                         }}
-                        sx={{
-                            borderRadius: '5px',
-                            minWidth: 147,
-                            height: '32px',
-                            '& .MuiSelect-select': {
-                                padding: 0,
-                                paddingLeft: '10px'
-                            },
-                            fontFamily: 'NotoSansKr'
-                        }}
                     >
                         <MenuItem value="">전체기간</MenuItem>
                         <MenuItem value={'Date1'}>전체기간1</MenuItem>
@@ -99,16 +69,9 @@ function RoadinFor() {
                         <MenuItem value={'Date3'}>전체기간3</MenuItem>
                     </Select>
                 </FormControl>
-                <FormControl
-                    sx={{
-                        minWidth: 130,
-                        display: 'inline-block',
-                        marginLeft: '10px',
-                        backgroundColor: '#fff',
-                        fontFamily: 'NotoSansKr'
-                    }}
-                >
+                <FormControl className="RoadinForForm2">
                     <Select
+                        className="RoadinForSelect2"
                         value={type}
                         onChange={typeChange}
                         displayEmpty
@@ -118,16 +81,6 @@ function RoadinFor() {
                                 padding: 0
                             }
                         }}
-                        sx={{
-                            borderRadius: '5px',
-                            minWidth: 130,
-                            height: '32px',
-                            '& .MuiSelect-select': {
-                                padding: 0,
-                                paddingLeft: '10px'
-                            },
-                            fontFamily: 'NotoSansKr'
-                        }}
                     >
                         <MenuItem value="">품종</MenuItem>
                         <MenuItem value={'고시히카리'}>고시히카리</MenuItem>
@@ -135,70 +88,21 @@ function RoadinFor() {
                         <MenuItem value={'폭탄수박'}>폭탄수박</MenuItem>
                     </Select>
                 </FormControl>
-                <form
-                    style={{
-                        display: 'inline-block'
-                    }}
-                    className="test1"
-                    noValidate
-                    autoComplete="off"
-                >
-                    <FormControl
-                        sx={{
-                            width: '230px',
-                            marginLeft: '10px',
-                            backgroundColor: '#fff',
-                            style: {
-                                paddingRight: 0
-                            }
-                        }}
-                    >
-                        <OutlinedInput
-                            placeholder="검색어를 입력해주세요."
-                            sx={{
-                                paddingLeft: '10px',
-                                paddingRight: '0px',
-                                fontFamily: 'NotoSansKr'
-                            }}
-                            inputProps={{
-                                style: {
-                                    padding: 0,
-                                    borderRadius: '5px',
-                                    height: '32px'
-                                }
-                            }}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        edge="end"
-                                        sx={{
-                                            backgroundColor: '#6995D5',
-                                            fontFamily: 'NotoSansKr',
-                                            fontSize: '14px',
-                                            height: '32px',
-                                            color: '#fff',
-                                            width: '39px',
-                                            marginRight: 0,
-                                            '& .MuiOutlinedInput-notchedOutline': {
-                                                borderRadius: '0 0 5px 5px' // 각 모서리에 개별적으로 borderRadius 설정
-                                            }
-                                        }}
-                                    >
-                                        검색
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        />
-                    </FormControl>
-                </form>
-            </div>
-            <List
-                sx={{
-                    width: '100%',
-                    bgcolor: 'background.paper',
-                    padding: 0
-                }}
-            >
+                <FormControl className="RoadinForForm3">
+                    <OutlinedInput
+                        className="RoadinForInput1"
+                        placeholder="검색어를 입력해주세요."
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton className="RoadinForInputButton1" edge="end">
+                                    검색
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                    />
+                </FormControl>
+            </Box>
+            <List className="list1">
                 {featurestack.map((feature, index) => (
                     <ListItem key={index}>
                         <ListItemAvatar>

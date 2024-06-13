@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import MapContext from '../MapContext';
 import ReactDOM from 'react-dom';
+import './static/MapPopupTable.css';
 
 function MapPopupTable(props) {
     const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function MapPopupTable(props) {
     console.log(selected);
 
     const rows = [
-        { id: selected.values_.BJCD, lastName: 'Snow', firstName: 'Jon', age: 14 },
+        { id: 1, lastName: 'Snow', firstName: 'Jon', age: 14 },
         { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 31 },
         { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 31 },
         { id: 4, lastName: 'Stark', firstName: 'Arya', age: 11 },
@@ -94,8 +95,9 @@ function MapPopupTable(props) {
             });
 
             ReactDOM.render(
-                <Box sx={{ height: 400, width: '100%' }}>
+                <Box className="DataBoxWarp">
                     <DataGrid
+                        className="DataBox"
                         rows={rows}
                         columns={columns}
                         initialState={{
