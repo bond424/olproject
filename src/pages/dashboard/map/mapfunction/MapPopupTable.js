@@ -103,7 +103,7 @@ function MapPopupTable(props) {
             ReactDOM.render(
                 <Box className="DataBoxWarp">
                     <Button className="DataCloseButton" onClick={removeRenderedComponent}>
-                        <CloseIcon></CloseIcon>
+                        <CloseIcon className="DataCloseIcon"></CloseIcon>
                     </Button>
                     <DataGrid
                         className="DataBox"

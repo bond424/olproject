@@ -53,8 +53,8 @@
 
 .DataCloseButton {
     position:absolute !important;
-    top:10px;
-    right:10px;
+    top:-5px;
+    right:-2px;
     z-index: 5;
     color: #fff !important;
     min-width: 20px;
@@ -63,3 +63,9 @@
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
     min-width: 20px !important;
 }
+.DataCloseIcon{
+    width: 18px !important;
+    height: 18px !important;
+}
+/* .MuiDataGrid-columnHeaderDraggableContainer > .MuiDataGrid-menuIcon{
+} */
