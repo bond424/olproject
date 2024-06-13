@@ -129,7 +129,7 @@ function MapPopupTable(props) {
                 ReactDOM.unmountComponentAtNode(popupContainer);
             };
         }
-    }, [map]);
+    }, [map, coord]);
 }
 
 export default MapPopupTable;
