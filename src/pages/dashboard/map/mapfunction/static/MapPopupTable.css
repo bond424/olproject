@@ -7,24 +7,30 @@
     border-radius: 10px;
     border: #f3f3f531 !important;
 }
+
 .MuiDataGrid-main {
     border : none;
     color :#18181C;
 }
+
 .MuiDataGrid-columnHeaders {
     background-color: #6995d5;
     color:white;
     border-radius: 9px 9px 0px 0px;
 }
+
 .MuiDataGrid-virtualScrollerRenderZone > :nth-child(2n) {
     background-color: #f3f3f5;
 }
+
 .MuiDataGrid-row.Mui-hovered {
     background-color: #BACFF1 !important;
 }
+
 .PrivateSwitchBase-input > .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium {
     color:#18181c5f !important
 }
+
 .MuiDataGrid-columnHeadersInner .MuiSvgIcon-root{
     color:#fff !important
 }
@@ -32,12 +38,28 @@
 .MuiDataGrid-main :first-child .MuiDataGrid-columnHeader .MuiDataGrid-columnSeparator{
     display:none;
 }
+
 .MuiDataGrid-columnHeader--sortable {
     outline: none !important;
 }
+
 .MuiDataGrid-columnHeader--sorted {
     background-color: #5989d1;
 }
+
 .css-wop1k0-MuiDataGrid-footerContainer {
     border:none;
+}
+
+.DataCloseButton {
+    position:absolute !important;
+    top:10px;
+    right:10px;
+    z-index: 5;
+    color: #fff !important;
+    min-width: 20px;
+    min-height: 20px;
+}
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+    min-width: 20px !important;
 }

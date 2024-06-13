@@ -4,8 +4,11 @@ import 'ol/ol.css'; //스타일
 import Overlay from 'ol/Overlay.js';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
+import Button from '@mui/material/Button';
+import CloseIcon from '@mui/icons-material/Close';
 import MapContext from '../MapContext';
 import ReactDOM from 'react-dom';
+
 import './static/MapPopupTable.css';
 
 function MapPopupTable(props) {
@@ -82,6 +85,9 @@ function MapPopupTable(props) {
         if (map !== undefined) {
             const popupContainer = document.createElement('div');
             popupContainer.style.position = 'absolute';
+            function removeRenderedComponent() {
+                ReactDOM.unmountComponentAtNode(popupContainer);
+            }
 
             // 팝업
             const overlay = new Overlay({
@@ -96,6 +102,9 @@ function MapPopupTable(props) {
 
             ReactDOM.render(
                 <Box className="DataBoxWarp">
+                    <Button className="DataCloseButton" onClick={removeRenderedComponent}>
+                        <CloseIcon></CloseIcon>
+                    </Button>
                     <DataGrid
                         className="DataBox"
                         rows={rows}
