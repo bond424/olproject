@@ -8,23 +8,22 @@ import { Circle as CircleStyle, Fill, RegularShape, Stroke, Style, Text } from '
 import { Select, Translate } from 'ol/interaction.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
 import * as shapefile from 'shapefile';
+import iconv from 'iconv-lite';
 
 import JSZip from 'jszip';
 
 import MapContext from '../MapContext';
 
-import { addSetGeojson, setCorfile, strdbfset, stsetgeo, setalert } from 'store/slice/geofileSlice';
+import { addSetGeojson, setCorfile, strdbfset, stsetgeo, setalert, getallvctlist, setshpvi } from 'store/slice/geofileSlice';
 
 const ShowFiles = () => {
     const { map } = useContext(MapContext);
 
     const dispatch = useDispatch();
 
-    const { geojsondata } = useSelector((state) => state.geofileRedycer);
-    const { getAllFiles } = useSelector((state) => state.geofileRedycer);
-    const { startdbfset } = useSelector((state) => state.geofileRedycer);
-    const { stgeojsondata } = useSelector((state) => state.geofileRedycer);
-    const { insertalert } = useSelector((state) => state.geofileRedycer);
+    const { geojsondata, getAllFiles, startdbfset, stgeojsondata, insertalert, shpvi, allvctlist } = useSelector(
+        (state) => state.geofileRedycer
+    );
 
     const [source, setSource] = useState();
     const [vector, setVector] = useState();
@@ -35,18 +34,18 @@ const ShowFiles = () => {
         if (map !== undefined) {
             const sets = new VectorSource();
             setSource(sets);
-            var layerarr = [];
-            map.getLayers()
-                .getArray()
-                .forEach((layer) => {
-                    if (layer instanceof VectorLayer) {
-                        setvsarr((prevlist) => [...prevlist, layer]);
-                        // layerarr.push(...layer);
-                    }
-                });
-            console.log(layerarr);
+            map.on('dblclick', function () {
+                console.log(vsarr);
+            });
         }
     }, [map]);
+
+    useEffect(() => {
+        if (vsarr.length > 0) {
+            console.log(vsarr);
+            console.log(allvctlist);
+        }
+    }, [vsarr]);
 
     useEffect(() => {
         if (map !== undefined) {
@@ -65,6 +64,22 @@ const ShowFiles = () => {
             // });
         }
     }, [map, getAllFiles]);
+
+    useEffect(() => {
+        if (map !== undefined && shpvi.length > 0 && shpvi !== undefined) {
+            map.getLayers()
+                .getArray()
+                .forEach((layer) => {
+                    if (layer instanceof VectorLayer || layer instanceof LayerGroup) {
+                        if (layer.values_.id == shpvi) {
+                            const currentVisibility = layer.getVisible();
+                            layer.setVisible(!currentVisibility);
+                        }
+                    }
+                });
+            dispatch(setshpvi({ shpvi: [] }));
+        }
+    }, [shpvi]);
 
     useEffect(() => {
         if (startdbfset !== null && insertalert == true) {
@@ -104,6 +119,17 @@ const ShowFiles = () => {
         try {
             const shpContent = await shpFile.async('arraybuffer');
             const dbfContent = await dbfFile.async('arraybuffer');
+
+            const dbfBuffer = Buffer.from(dbfContent);
+            const dbfDecoded = iconv.decode(dbfBuffer, 'euc-kr');
+
+            const dbfEncoded = iconv.encode(dbfDecoded, 'utf-8');
+            const dbfArrayBuffer = dbfEncoded.buffer;
+
+            console.log('SHP Content:', shpContent);
+            console.log('DBF Content:', dbfContent);
+            console.log('DBF Array Buffer:', dbfArrayBuffer);
+
             const source = await shapefile.open(shpContent, dbfContent);
             const arr = [];
             let result;
@@ -149,15 +175,25 @@ const ShowFiles = () => {
             });
 
             const vectorLayer = new VectorLayer({
+                id: geojsondata[0].name,
                 source: vectorSource
             });
 
-            const layerGroup = new LayerGroup({
-                layers: [vectorLayer]
-            });
+            // const layerGroup = new LayerGroup({
+            //     layers: [vectorLayer]
+            // });
 
-            map.addLayer(layerGroup);
-
+            map.addLayer(vectorLayer);
+            var layerarr = [];
+            map.getLayers()
+                .getArray()
+                .forEach((layer) => {
+                    if (layer instanceof VectorLayer || layer instanceof LayerGroup) {
+                        layerarr.push(layer);
+                    }
+                });
+            setvsarr(layerarr);
+            dispatch(getallvctlist({ allvctlist: layerarr }));
             // if (Array.isArray(geofobj)) {
             //     geofobj.forEach((feature) => source.addFeature(feature));
             // } else {

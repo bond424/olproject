@@ -14,6 +14,7 @@ import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 
 import FileFor from './FileFor';
+import FindLayers from './FindLayers';
 // ==============================|| DRAWER CONTENT ||============================== //
 
 function TabPanel(props) {
@@ -107,7 +108,7 @@ function DrawerContent() {
                 Item Two
             </TabPanel>
             <TabPanel value={value} index={2} dir={theme.direction}>
-                Item Three
+                <FindLayers />
             </TabPanel>
             {/* <Navigation /> */}
         </SimpleBar>

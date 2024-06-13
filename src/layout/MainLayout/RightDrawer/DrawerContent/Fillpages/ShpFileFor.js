@@ -27,7 +27,16 @@ import AuthBackground from 'assets/images/auth/AuthBackground';
 
 import * as shapefile from 'shapefile';
 
-import { addSetGeojson, setDBShpFiles, getDBShpFiles, getAllDBFiles, stsetgeo, strdbfset, setalert } from 'store/slice/geofileSlice';
+import {
+    addSetGeojson,
+    setDBShpFiles,
+    getDBShpFiles,
+    getAllDBFiles,
+    stsetgeo,
+    strdbfset,
+    setalert,
+    setshpvi
+} from 'store/slice/geofileSlice';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -210,6 +219,10 @@ function ShpFileFor() {
         }
     }, [showsg, startdbfset]);
 
+    const shpvisible = (n) => {
+        dispatch(setshpvi({ shpvi: n }));
+    };
+
     return (
         <Box
             sx={{
@@ -359,7 +372,7 @@ function ShpFileFor() {
                     <ListItem key={index}>
                         <ListItemAvatar>
                             <Avatar>
-                                <ImageIcon />
+                                <ImageIcon onClick={() => shpvisible(feature.fileid)} />
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText primary={feature.fileid} secondary={feature.fileid} />

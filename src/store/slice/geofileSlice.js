@@ -12,7 +12,10 @@ const initialState = {
     setcorfiles: [],
     stgeojsondata: [],
     startdbfset: [],
-    insertalert: false
+    insertalert: false,
+    shpvi: [],
+    shpchecked: false,
+    allvctlist: []
 };
 
 export const getFileTable = createAsyncThunk('geoFileController/euckr_epsg', async () => {
@@ -64,6 +67,18 @@ const geofileSlice = createSlice({
 
         setalert(state, action) {
             state.insertalert = action.payload.insertalert;
+        },
+
+        setshpvi(state, action) {
+            state.shpvi = action.payload.shpvi;
+        },
+
+        setshpchecked(state, action) {
+            state.shpchecked = action.payload.shpchecked;
+        },
+
+        getallvctlist(state, action) {
+            state.allvctlist = action.payload.allvctlist;
         }
     },
     extraReducers: (builder) => {
@@ -85,6 +100,7 @@ const geofileSlice = createSlice({
     }
 });
 
-export const { addGeoFileLayer, addSetGeojson, setCorfile, stsetgeo, setalert } = geofileSlice.actions;
+export const { addGeoFileLayer, addSetGeojson, setCorfile, stsetgeo, setalert, setshpvi, setshpchecked, getallvctlist } =
+    geofileSlice.actions;
 
 export default geofileSlice.reducer;

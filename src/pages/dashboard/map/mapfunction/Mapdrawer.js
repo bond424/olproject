@@ -133,8 +133,6 @@ const Mapdrawer = () => {
                     modifyStyle.setGeometry();
                 });
                 tip = idleTip;
-                console.log(map.interactions.array_);
-                console.log('end');
                 setTimeout(function () {
                     getAllFeatures(feature);
                 }, 0);
