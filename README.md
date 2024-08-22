@@ -1,4 +1,4 @@
-# openlayers project
+# mapserver project
 git remote add origin https://github.com/bond424/olproject.git
 ![image](https://github.com/user-attachments/assets/71bfbfe7-0c53-4d11-bdaf-73ee5c170db5)
 
