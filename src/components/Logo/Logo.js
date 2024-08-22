@@ -1,6 +1,6 @@
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import logo from 'assets/images/icons/geomatic.png';
+// import logo from 'assets/images/icons/sampletest.png';
 /**
  * if you want to use image instead of <svg> uncomment following.
  *
@@ -22,7 +22,8 @@ const Logo = () => {
          *
          */
         <>
-            <img src={logo} alt="Mantis" width="150" />
+            <div></div>
+            {/* <img src={logo} alt="Mantis" width="150" /> */}
         </>
     );
 };
