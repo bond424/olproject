@@ -1,7 +1,6 @@
-![image](https://github.com/user-attachments/assets/62345189-89b0-42d3-a06f-09d5ee0183a3)# mapserver project
+# mapserver project
 git remote add origin https://github.com/bond424/olproject.git
 ![image](https://github.com/user-attachments/assets/8f42e8da-eafa-43eb-9eb2-0afc387230e1)
-
 
 geoserver 세팅
 geoserver-2.20.2-bin
