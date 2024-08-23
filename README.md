@@ -1,6 +1,7 @@
-# mapserver project
+![image](https://github.com/user-attachments/assets/62345189-89b0-42d3-a06f-09d5ee0183a3)# mapserver project
 git remote add origin https://github.com/bond424/olproject.git
-![image](https://github.com/user-attachments/assets/71bfbfe7-0c53-4d11-bdaf-73ee5c170db5)
+![image](https://github.com/user-attachments/assets/8f42e8da-eafa-43eb-9eb2-0afc387230e1)
+
 
 geoserver 세팅
 geoserver-2.20.2-bin
@@ -20,3 +21,7 @@ jdk-11.0.21_windows-x64_bin
 - shp 파일 객체 정보 확인
 - 추가 예정 : 결재 및 보고서 기능 추가
 - 임의의 poi를 만들고 poi 클릭 시 주변이 보이는 360 사진 보일수 있게 (lib:photo-sphere-viewer)
+
+```
+
+```
