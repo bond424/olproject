@@ -19,4 +19,4 @@ jdk-11.0.21_windows-x64_bin
 - 업로드 된 shp => csv 변환
 - shp 파일 객체 정보 확인
 - 추가 예정 : 결재 및 보고서 기능 추가
-- 추가 예정 : 임의의 poi를 만들고 poi 클릭 시 주변이 보이는 360 사진 보일수 있게 (lib:photo-sphere-viewer)
+- 임의의 poi를 만들고 poi 클릭 시 주변이 보이는 360 사진 보일수 있게 (lib:photo-sphere-viewer)
